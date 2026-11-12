@@ -1,20 +1,21 @@
 # Reproducción desde un clon limpio
 
-Hecha el 11 nov 2026 en el mismo equipo (Windows 11, Python 3.12.10), sobre un clon nuevo
-del commit `b669f96` en `C:\tmp\p6-clon`, con un entorno virtual nuevo y los pesos
-descargados de la URL pública. La salida de la corrida nueva se guardó fuera del
-repositorio (`C:\tmp\p6-repro`).
+Hecha el 11 nov 2026 (hora local) en Windows 11 con Python 3.12.10, sobre un clon nuevo
+**desde GitHub** del commit `35d82b1` en `C:\tmp\rp`, con un entorno virtual nuevo y los
+pesos descargados de la URL pública. Las corridas nuevas se guardaron fuera del
+repositorio, en `C:\tmp\rp-out`.
 
 ```bash
-git clone <repo> p6-clon && cd p6-clon
+git clone https://github.com/ikramzaldivar/proyecto6-monitoreo-cv.git rp && cd rp
 python -m venv .venv && .venv\Scripts\pip install -r requirements.txt
 .venv\Scripts\python scripts/descargar_modelo.py --destino modelo/
 set PYTHONPATH=src
 .venv\Scripts\python -m pytest -q
 .venv\Scripts\ruff check .
 .venv\Scripts\python scripts/recalcular_metricas.py --todas
-.venv\Scripts\python -m p6.monitor --escenario escenarios/c2-baja-confianza.yaml --salida C:/tmp/p6-repro
-.venv\Scripts\python scripts/recalcular_metricas.py C:/tmp/p6-repro/<run_id>
+# para cada escenario c1-normal, c2-baja-confianza, e1-…, e2-…, e3-…:
+.venv\Scripts\python -m p6.monitor --escenario escenarios/<escenario>.yaml --salida C:/tmp/rp-out
+.venv\Scripts\python scripts/recalcular_metricas.py C:/tmp/rp-out/<run_id>
 ```
 
 | Paso | Resultado |
@@ -22,20 +23,23 @@ set PYTHONPATH=src
 | Descarga del modelo | SHA-256 `c789161e…` coincide con `modelo/descriptor.yaml` |
 | `pytest -q` | 30 passed (incluida la integración con el modelo real) |
 | `ruff check .` | sin hallazgos |
-| Recálculo de las 6 corridas entregadas | todo coincide |
-| SHA-256 de `config/monitoreo.yaml` / `config/referencia.json` en el clon | `2ea33802ba0c…` / `4f55629e95b3…`, iguales a los de `run.json` de las corridas |
-| C2 de nuevo (`c2-baja-confianza-20261112T043158Z`) | **las 12 puntuaciones, zonas y listas de detecciones son idénticas** a las de la corrida entregada; misma alerta `baja-confianza-v1`, abierta en v1 y resuelta en v2 |
+| Recálculo de las 6 corridas entregadas | 114/114 comprobaciones coinciden |
+| SHA-256 de `config/monitoreo.yaml` / `config/referencia.json` en el clon | `2ea33802ba0c…` / `5b42974101f9…`, iguales a los de `run.json` de C1–E3 |
+| C1, C2, E1, E2 y E3 de nuevo | Para los 5 escenarios: **listas de detecciones idénticas** a las entregadas, **la misma secuencia de alertas** (regla, registro y ventanas) y **la misma serie G7**. Recálculo de las corridas nuevas: 19/19 en cada una |
 
-## Hallazgo corregido durante la reproducción
+Las corridas nuevas registran `git.commit = 35d82b1` sin cambios locales. Entre `cce0f6c`
+(commit de las corridas entregadas) y `35d82b1` no cambia código, configuración, escenarios,
+scripts ni pruebas (`git diff cce0f6c 35d82b1 -- src config escenarios scripts tests` vacío).
 
-El recálculo independiente de la corrida nueva marcó una discrepancia en la métrica
-adicional M5 (cobertura de trazabilidad): `metricas.json` decía 0.0 y el recálculo, 1.0.
-La causa: `src/p6/metricas.py` deducía la raíz del repositorio a partir de la carpeta de la
-corrida (`parents[2]`), lo que solo vale dentro de `evidencias/corridas/`. Con `--salida`
-fuera del repositorio no encontraba las entradas. Se corrigió para usar la raíz del
-paquete. Recalcular `metricas.json` de las seis corridas entregadas con el código
-corregido da archivos idénticos, porque están dentro del repositorio. Después de la
-corrección, el recálculo de la corrida nueva coincide por completo.
+## Historial de hallazgos
+
+- **Primera reproducción (commit `b669f96`).** El recálculo independiente encontró que M5
+  (cobertura de trazabilidad) daba 0.0 cuando la corrida se guarda fuera del repositorio:
+  la raíz se deducía de la carpeta de la corrida. Se corrigió en `29b6725`.
+- **Autoevaluación con la rúbrica.** G7 solo contaba las alertas abiertas en el instante
+  del cierre de cada ventana y dejaba en cero la alerta de fuente detenida de E3. Se
+  corrigió en `7c4a1b8` (alertas activas en cualquier instante de la ventana) y todas las
+  corridas se regeneraron con el código final.
 
 ## Notas para reproducir en Windows
 
