@@ -4,12 +4,15 @@
 
 | Commit | Contenido | Relación con las evidencias |
 | --- | --- | --- |
-| `56ede4d` | Código, configuración, escenarios, datos y pruebas | — |
-| `ad5229d` | `.gitattributes` (LF) | Revisión con la que corrió `r0-referencia` |
-| `862916f` | `config/referencia.json` y corrida r0 | Referencia congelada antes de C1/C2 |
-| `de41810` | LF en JSON, motivo de resolución por regla, E1 rediseñado | **Revisión con la que corrieron C1, C2, E1, E2 y E3** (`run.json → git.commit`, sin cambios en el código) |
-| commit de entrega (siguiente a `de41810`) | Corridas C1–E3, capturas del portal, documentación, recálculo y reproducción | Solo agrega evidencias y docs. Además cambia la posición de las etiquetas de umbral en las gráficas SVG (`src/p6/portal.py`, `_umbral`) y amplía `scripts/recalcular_metricas.py` a las métricas extra; ninguno de los dos cambios afecta a las corridas ya registradas |
-| commit siguiente | Corrección de la raíz en `metricas.py` (M5 fuera del repositorio) y reproducción | Hallado al reproducir desde un clon limpio; los `metricas.json` entregados no cambian (ver `reproduccion.md`) |
+| `56ede4d` … `e4a04d9` | Desarrollo y una primera entrega de evidencias | Historial. Esas corridas se retiraron del árbol en `7c4a1b8` y siguen consultables en Git |
+| `7c4a1b8` | **Código final**: G7 cuenta las alertas activas en cualquier instante de la ventana | Revisión con la que corrió `r0-referencia` |
+| `cce0f6c` | `config/referencia.json` congelada de nuevo desde esa r0 (mismos valores; cambian run_id y fecha) | **Revisión con la que corrieron C1, C2, E1, E2 y E3** (`run.json → git.commit`, `cambios_sin_commit_en_codigo: false`) |
+| commit de entrega (siguiente a `cce0f6c`) | Corridas, capturas del portal, recálculo, reproducción y documentación | Solo agrega evidencias y docs; **no cambia código, configuración ni escenarios** respecto de `cce0f6c` (comprobable con `git diff cce0f6c HEAD -- src config escenarios scripts tests`) |
+
+Entre `7c4a1b8` y `cce0f6c` solo cambia `config/referencia.json`. La corrida r0 usó la
+referencia anterior, que tiene los mismos valores, para la regla sostenida y el PSI; C1–E3
+usan la congelada desde esta r0 (SHA-256 `5b42974101f9…`). Un commit no puede contener su
+propio hash, por eso las corridas apuntan al commit anterior al de entrega.
 
 Configuración de todas las corridas C1–E3: `monitoreo-v1@2ea33802ba0c`. Modelo:
 `yolox_nano 0.1.1rc0`, SHA-256 `c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d`.
@@ -18,12 +21,12 @@ Configuración de todas las corridas C1–E3: `monitoreo-v1@2ea33802ba0c`. Model
 
 | Escenario | run_id | Frames | Alertas |
 | --- | --- | --- | --- |
-| Referencia | `r0-referencia-20261112T041654Z` | 78 | 2 × baja-confianza (S3/S4) |
-| **C1** normal | `c1-normal-20261112T042108Z` | 41 | ninguna |
-| **C2** baja confianza | `c2-baja-confianza-20261112T042129Z` | 12 | `…-a01` baja-confianza-v1 |
-| E1 sostenido | `e1-cambio-sostenido-20261112T042135Z` | 48 | `…-a01` baja-confianza, `…-a02` cambio-sostenido |
-| E2 corruptas | `e2-entradas-corruptas-20261112T042201Z` | 29 | `…-a01` errores-inferencia |
-| E3 interrupción | `e3-interrupcion-fuente-20261112T042216Z` | 29 | `…-a01` fuente-detenida |
+| Referencia | `r0-referencia-20261112T045031Z` | 78 | 2 × baja-confianza (S3/S4) |
+| **C1** normal | `c1-normal-20261112T045122Z` | 41 | ninguna |
+| **C2** baja confianza | `c2-baja-confianza-20261112T045142Z` | 12 | `…-a01` baja-confianza-v1 |
+| E1 sostenido | `e1-cambio-sostenido-20261112T045149Z` | 48 | `…-a01` baja-confianza, `…-a02` cambio-sostenido |
+| E2 corruptas | `e2-entradas-corruptas-20261112T045213Z` | 29 | `…-a01` errores-inferencia |
+| E3 interrupción | `e3-interrupcion-fuente-20261112T045228Z` | 29 | `…-a01` fuente-detenida |
 
 Cada carpeta `evidencias/corridas/<run_id>/` contiene `run.json`, `config/` (copia exacta),
 `eventos.jsonl`, `ventanas.jsonl`, `alertas.jsonl`, `capturas.jsonl`, `imagenes/` y
@@ -33,7 +36,7 @@ Cada carpeta `evidencias/corridas/<run_id>/` contiene `run.json`, `config/` (cop
 
 1. **Entrada:** `datos/preparadas/poca-luz/S5-poca-luz_S5_20800b49d3044edf9c90975516e5fbcc.jpg` (SHA-256 `c029c21c…`). Su manifiesto
    indica el origen `datos/carrito/S5/…` con SHA-256 y la transformación aplicada.
-2. **Inferencia → evento** `c2-baja-confianza-20261112T042129Z-f0001` (`eventos.jsonl`,
+2. **Inferencia → evento** `c2-baja-confianza-20261112T045142Z-f0001` (`eventos.jsonl`,
    línea 1): `status=ok`, candidatas tv 0.303, cat 0.225, person 0.166, cat 0.107, `score_frame=0.303`,
    `zona_frame=baja`, modelo `c789161e…`, `config_ref monitoreo-v1@2ea33802ba0c`,
    `ventana_id …-v001`, `imagen_ref imagenes/0001_S5_20800b49d3044edf9c90975516e5fbcc-poca-luz.jpg`.
@@ -42,7 +45,7 @@ Cada carpeta `evidencias/corridas/<run_id>/` contiene `run.json`, `config/` (cop
    `baja_confianza: cumple`.
 5. **Alerta** `…-a01` (`alertas.jsonl`): apertura con `ventana_ids [v001]` y `event_ids
    f0001–f0006`; resolución en v002.
-6. **Portal:** `/alertas/c2-baja-confianza-20261112T042129Z-a01` lleva a la ventana, a los
+6. **Portal:** `/alertas/c2-baja-confianza-20261112T045142Z-a01` lleva a la ventana, a los
    eventos y a las capturas (`portal/07-alerta-c2.png`, `portal/08-evento-c2-baja.png`).
 7. **Recálculo:** `recalculo.txt`, bloque `c2-…`: zonas, ventanas, alerta y métricas coinciden.
 
@@ -94,3 +97,4 @@ Tomadas con Chrome headless contra `python -m p6.portal` sobre estas mismas corr
 | 16-corrida-c2-config | `run.json`, configuración congelada y métricas de C2 |
 | 17-eventos-filtro-vacio | Estado vacío de un filtro |
 | 18-evento-e2-error | Evento con `status=error` |
+| 19-tablero-e3-fuente | Tablero de E3: la serie G7 cuenta la alerta de fuente detenida en v3 |

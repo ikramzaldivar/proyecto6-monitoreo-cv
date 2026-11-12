@@ -96,7 +96,7 @@ ruff check .
 | --- | --- |
 | [`config/monitoreo.yaml`](config/monitoreo.yaml) | fuente (2 fps, cola 8, 3 s sin frames), umbrales 0.40/0.70, ventanas de 6 frames con mínimo 4 puntuados, reglas, política de captura |
 | [`config/detector.yaml`](config/detector.yaml) | modelo, entrada 416, relleno 114, **piso de salida 0.10**, NMS 0.45, máx. 100 detecciones |
-| [`config/referencia.json`](config/referencia.json) | referencia congelada desde la corrida `r0-referencia-20261112T041654Z` |
+| [`config/referencia.json`](config/referencia.json) | referencia congelada desde la corrida `r0-referencia-20261112T045031Z` |
 | [`escenarios/*.yaml`](escenarios/) | frames y pausas de cada escenario, descripción y resultado esperado |
 
 Justificación de umbrales, piso y referencia: [`docs/umbrales.md`](docs/umbrales.md).

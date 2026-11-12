@@ -1,0 +1,12 @@
+escenario_id: c1-normal
+descripcion: >-
+  C1 operacion normal. El carrito recorre un tramo despejado (S1) y luego encuentra
+  obstaculos con buena iluminacion (S5 y S2), imagenes originales sin modificar, a 2 fps.
+esperado: >-
+  Inferencias reales en los 41 frames. Las ventanas de S1 casi no tienen puntuados y
+  quedan como evidencia insuficiente (no como normalidad). Las ventanas de S5 y S2 son
+  suficientes con p_baja < 0.50, por lo que baja-confianza-v1 no se activa; tampoco
+  cambio-sostenido-v1 (p_baja <= referencia + 0.30). Sin fallos.
+segmentos:
+  - manifiesto: datos/carrito/capturas.csv
+    secuencias: [S1, S5, S2]

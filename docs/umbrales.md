@@ -31,7 +31,7 @@ C2 y los escenarios adicionales. Todas esas corridas usan `monitoreo-v1@2ea33802
 
 ## Corrida de referencia
 
-`r0-referencia-20261112T041654Z` (commit `ad5229d`): las seis secuencias originales del
+`r0-referencia-20261112T045031Z` (commit `7c4a1b8`): las seis secuencias originales del
 carrito (S1–S6, 78 frames) con la iluminación normal de la captura de P5. Puntuación del
 frame por secuencia (`—` = sin detecciones):
 
@@ -88,5 +88,5 @@ revisar capturas y condiciones, no reentrenar.
 Referencia, C1, C2 y los extras usan el mismo modelo (SHA-256 `c789161e…`), el mismo
 preprocesamiento (416, relleno 114), el mismo piso (0.10), el mismo NMS (0.45) y los mismos
 umbrales. `run.json` de cada corrida guarda estos valores y el SHA-256 de la referencia
-usada (`4f55629e95b3…`). Si alguno cambiara, la serie se separa: la referencia tendría que
+usada (`5b42974101f9…`). Si alguno cambiara, la serie se separa: la referencia tendría que
 recalcularse con `p6.referencia` sobre una corrida con la nueva configuración.

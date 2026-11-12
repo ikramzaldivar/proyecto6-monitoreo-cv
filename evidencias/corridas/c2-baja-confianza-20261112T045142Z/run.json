@@ -1,0 +1,64 @@
+{
+  "run_id": "c2-baja-confianza-20261112T045142Z",
+  "escenario_id": "c2-baja-confianza",
+  "escenario": {
+    "escenario_id": "c2-baja-confianza",
+    "descripcion": "C2 baja confianza. La misma escena de S5 con poca luz y desenfoque (Gaussian blur radio 3 y brillo x0.30, aplicado a la imagen; ver datos/preparadas/poca-luz), a 2 fps, con el mismo modelo, preprocesamiento y umbrales que C1.",
+    "esperado": "Las puntuaciones reales del modelo caen bajo el umbral inferior (0.40) en la mayoria de los frames de la primera ventana: baja-confianza-v1 se abre con los eventos de zona baja y sus capturas. Con la segunda ventana (frames 7-12, la escena mas iluminada) la proporcion baja de 0.50 y la alerta se resuelve.",
+    "segmentos": [
+      {
+        "manifiesto": "datos/preparadas/poca-luz/capturas.csv"
+      }
+    ],
+    "_archivo": "escenarios/c2-baja-confianza.yaml"
+  },
+  "escenario_archivo": "escenarios/c2-baja-confianza.yaml",
+  "inicio_utc": "2026-11-12T04:51:42.916Z",
+  "fin_utc": "2026-11-12T04:51:48.504Z",
+  "git": {
+    "commit": "cce0f6c28f0ef69780cc7843251a81258a978d94",
+    "cambios_sin_commit_en_codigo": false
+  },
+  "source_id": "carrito-esp32cam",
+  "task": "detection",
+  "frames_planeados": 12,
+  "config_ref": "monitoreo-v1@2ea33802ba0c",
+  "config_sha256": "2ea33802ba0c0ceaba3d1376eede3cc85a8ab64675dfb69a4fdea80f01059255",
+  "detector_config_sha256": "c0855db75854587af5beeb013aad35c5c855222d7437dd7b678a078110784ce9",
+  "referencia": {
+    "archivo": "config/referencia.json",
+    "sha256": "5b42974101f967ef40855e591b79f93d55e46b6cdc5c458a44d8f8fcb6e43617",
+    "run_id": "r0-referencia-20261112T045031Z",
+    "p_baja": 0.3225806451612903
+  },
+  "modelo": {
+    "nombre": "yolox_nano",
+    "version": "0.1.1rc0",
+    "archivo": "yolox_nano.onnx",
+    "sha256": "c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d"
+  },
+  "politica": {
+    "umbral_inferior": 0.4,
+    "umbral_superior": 0.7,
+    "piso_salida": 0.1,
+    "nms_iou": 0.45,
+    "tamano_entrada": 416
+  },
+  "entorno": {
+    "python": "3.12.10",
+    "onnxruntime": "1.31.1",
+    "proveedor": "CPUExecutionProvider",
+    "so": "Windows 11 (10.0.22631)",
+    "cpu": "Intel64 Family 6 Model 165 Stepping 2, GenuineIntel",
+    "nucleos_logicos": 8,
+    "ram_total_gb": 7.78
+  },
+  "estado": "terminada",
+  "fuente": {
+    "fps_configurado": 2.0,
+    "frames_emitidos": 12,
+    "frames_procesados": 12,
+    "descartados_saturacion": 0
+  },
+  "alertas_abiertas_al_final": []
+}

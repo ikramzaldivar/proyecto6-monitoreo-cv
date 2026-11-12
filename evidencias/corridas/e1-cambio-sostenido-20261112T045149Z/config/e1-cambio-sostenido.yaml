@@ -1,0 +1,19 @@
+escenario_id: e1-cambio-sostenido
+descripcion: >-
+  Extra E1, cambio sostenido de confianza. S5 original (12 frames); la camara pierde el foco
+  (S5 con desenfoque gaussiano radio 7, 12 frames) y despues queda con poca luz y algo de
+  desenfoque (S5 de datos/preparadas/poca-luz, 12 frames); al final vuelve la condicion
+  original (S5, 12 frames). 2 fps, misma configuracion que C1/C2.
+esperado: >-
+  Ventanas 1-2 (S5 original) sin alertas. Las ventanas 3, 4 y 5 son suficientes con
+  p_baja por encima de referencia + 0.30 (0.62): baja-confianza-v1 se abre en la ventana 3
+  y cambio-sostenido-v1 se abre en la ventana 5, al completar 3 ventanas seguidas, con los
+  eventos de zona baja de toda la racha. La ventana 6 (escena mas iluminada de poca-luz)
+  baja de 0.62 y de 0.50: ambas alertas se resuelven y las ventanas 7-8 siguen sin alertas.
+segmentos:
+  - manifiesto: datos/carrito/capturas.csv
+    secuencias: [S5]
+  - manifiesto: datos/preparadas/desenfoque/capturas.csv
+  - manifiesto: datos/preparadas/poca-luz/capturas.csv
+  - manifiesto: datos/carrito/capturas.csv
+    secuencias: [S5]

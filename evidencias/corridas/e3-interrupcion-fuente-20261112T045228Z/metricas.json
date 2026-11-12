@@ -1,0 +1,260 @@
+{
+  "run_id": "e3-interrupcion-fuente-20261112T045228Z",
+  "calculado_desde": [
+    "run.json",
+    "eventos.jsonl",
+    "ventanas.jsonl",
+    "alertas.jsonl",
+    "capturas.jsonl",
+    "config/"
+  ],
+  "metodo_percentil": "nearest-rank",
+  "resumen": {
+    "run_id": "e3-interrupcion-fuente-20261112T045228Z",
+    "frames": 29,
+    "zonas": {
+      "aceptada": 14,
+      "duda": 11,
+      "baja": 3,
+      "sin_detecciones": 1,
+      "error": 0
+    },
+    "ventanas": 5,
+    "ventanas_suficientes": 5,
+    "ventanas_insuficientes": 0,
+    "alertas": [
+      "e3-interrupcion-fuente-20261112T045228Z-a01 fuente-detenida-v1"
+    ],
+    "p_baja": 0.10714285714285714,
+    "inferencia_p95_ms": 19.77,
+    "fps_procesamiento": 1.485807962545294,
+    "imagenes_vinculadas": 1.0
+  },
+  "metricas": {
+    "G1_tiempo_inferencia_ms": {
+      "p50": 12.03,
+      "p95": 19.77,
+      "n": 29
+    },
+    "G1x_tasa_errores": {
+      "valor": 0.0,
+      "n": 29
+    },
+    "G2_fps_procesamiento": {
+      "valor": 1.485807962545294,
+      "n": 29,
+      "duracion_s": 19.51800012588501
+    },
+    "G2x_latencia_e2e_ms": {
+      "p50": 28.049,
+      "p95": 41.558,
+      "max": 43.134,
+      "n": 29
+    },
+    "G2x_descartados": {
+      "saturacion": 0,
+      "muestreo": 0,
+      "emitidos": 29,
+      "procesados": 29
+    },
+    "G3_rss_mb": {
+      "max": 79.47,
+      "media": 79.38655172413793,
+      "n": 29
+    },
+    "G3x_cpu_pct_proceso": {
+      "media": 32.97857142857143,
+      "max": 51.5,
+      "n": 28
+    },
+    "G4_p_baja": {
+      "valor": 0.10714285714285714,
+      "baja": 3,
+      "n": 28
+    },
+    "G4_zonas": {
+      "aceptada": 14,
+      "duda": 11,
+      "baja": 3,
+      "sin_detecciones": 1,
+      "error": 0
+    },
+    "G4x_sin_detecciones": {
+      "valor": 0.034482758620689655,
+      "sin_detecciones": 1,
+      "n": 29
+    },
+    "G4x_detecciones_por_clase": {
+      "person": {
+        "baja": 5,
+        "aceptada": 13,
+        "duda": 3,
+        "total": 21
+      },
+      "dog": {
+        "baja": 7,
+        "aceptada": 4,
+        "duda": 7,
+        "total": 18
+      },
+      "cat": {
+        "aceptada": 8,
+        "baja": 6,
+        "duda": 1,
+        "total": 15
+      },
+      "teddy bear": {
+        "baja": 5,
+        "duda": 3,
+        "aceptada": 1,
+        "total": 9
+      },
+      "tv": {
+        "baja": 6,
+        "duda": 1,
+        "total": 7
+      },
+      "toilet": {
+        "duda": 1,
+        "baja": 3,
+        "total": 4
+      },
+      "fire hydrant": {
+        "aceptada": 1,
+        "duda": 1,
+        "baja": 2,
+        "total": 4
+      },
+      "kite": {
+        "baja": 2,
+        "duda": 1,
+        "total": 3
+      },
+      "refrigerator": {
+        "baja": 1,
+        "duda": 2,
+        "total": 3
+      },
+      "suitcase": {
+        "baja": 1,
+        "total": 1
+      },
+      "chair": {
+        "baja": 1,
+        "total": 1
+      },
+      "vase": {
+        "duda": 1,
+        "total": 1
+      },
+      "bench": {
+        "baja": 1,
+        "total": 1
+      },
+      "car": {
+        "baja": 1,
+        "total": 1
+      },
+      "tie": {
+        "baja": 1,
+        "total": 1
+      },
+      "sink": {
+        "baja": 1,
+        "total": 1
+      },
+      "traffic light": {
+        "baja": 1,
+        "total": 1
+      },
+      "bird": {
+        "baja": 1,
+        "total": 1
+      }
+    },
+    "G4x_psi_referencia": {
+      "valor": 1.1702718452836482,
+      "bins": [
+        0.1,
+        0.25,
+        0.4,
+        0.55,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "distribucion": [
+        3,
+        0,
+        7,
+        4,
+        5,
+        9
+      ],
+      "distribucion_referencia": [
+        11,
+        9,
+        14,
+        5,
+        9,
+        14
+      ],
+      "n": 28,
+      "n_referencia": 62
+    },
+    "G5_imagenes_vinculadas": {
+      "valor": 1.0,
+      "vinculadas": 18,
+      "n": 18
+    },
+    "G5x_cobertura_trazabilidad": {
+      "valor": 1.0,
+      "completos": 29,
+      "n": 29
+    },
+    "G6_version_esperada_vs_reportada": {
+      "valor": 1.0,
+      "coinciden": 29,
+      "n": 29,
+      "esperada": "c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d",
+      "distribucion": {
+        "yolox_nano@c789161ed43c": 29
+      }
+    },
+    "G6x_reportes_por_fuente": {
+      "carrito-esp32cam": {
+        "reportes": 29,
+        "s_desde_ultimo_al_cierre": 0.056999921798706055
+      }
+    },
+    "G7_alertas_activas": {
+      "max_por_ventana": 1,
+      "al_cierre": 0,
+      "serie": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "serie_al_cierre_de_ventana": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "abiertas_total": 1,
+      "resueltas": 1,
+      "n_ventanas": 5
+    },
+    "G7x_tiempo_deteccion_s": {
+      "e3-interrupcion-fuente-20261112T045228Z-a01": {
+        "rule_id": "fuente-detenida-v1",
+        "valor": 3.0199999809265137,
+        "inicio_condicion": "2026-11-12T04:52:33.936Z",
+        "apertura": "2026-11-12T04:52:36.956Z"
+      }
+    }
+  }
+}

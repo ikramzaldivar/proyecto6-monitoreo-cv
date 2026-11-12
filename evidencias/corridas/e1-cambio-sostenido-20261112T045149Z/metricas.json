@@ -1,0 +1,253 @@
+{
+  "run_id": "e1-cambio-sostenido-20261112T045149Z",
+  "calculado_desde": [
+    "run.json",
+    "eventos.jsonl",
+    "ventanas.jsonl",
+    "alertas.jsonl",
+    "capturas.jsonl",
+    "config/"
+  ],
+  "metodo_percentil": "nearest-rank",
+  "resumen": {
+    "run_id": "e1-cambio-sostenido-20261112T045149Z",
+    "frames": 48,
+    "zonas": {
+      "aceptada": 22,
+      "duda": 9,
+      "baja": 16,
+      "sin_detecciones": 1,
+      "error": 0
+    },
+    "ventanas": 8,
+    "ventanas_suficientes": 8,
+    "ventanas_insuficientes": 0,
+    "alertas": [
+      "e1-cambio-sostenido-20261112T045149Z-a01 baja-confianza-v1",
+      "e1-cambio-sostenido-20261112T045149Z-a02 cambio-sostenido-v1"
+    ],
+    "p_baja": 0.3404255319148936,
+    "inferencia_p95_ms": 22.664,
+    "fps_procesamiento": 2.0411634603595603,
+    "imagenes_vinculadas": 1.0
+  },
+  "metricas": {
+    "G1_tiempo_inferencia_ms": {
+      "p50": 12.227,
+      "p95": 22.664,
+      "n": 48
+    },
+    "G1x_tasa_errores": {
+      "valor": 0.0,
+      "n": 48
+    },
+    "G2_fps_procesamiento": {
+      "valor": 2.0411634603595603,
+      "n": 48,
+      "duracion_s": 23.516000032424927
+    },
+    "G2x_latencia_e2e_ms": {
+      "p50": 23.896,
+      "p95": 44.708,
+      "max": 46.703,
+      "n": 48
+    },
+    "G2x_descartados": {
+      "saturacion": 0,
+      "muestreo": 0,
+      "emitidos": 48,
+      "procesados": 48
+    },
+    "G3_rss_mb": {
+      "max": 82.03,
+      "media": 79.58604166666667,
+      "n": 48
+    },
+    "G3x_cpu_pct_proceso": {
+      "media": 34.742553191489364,
+      "max": 48.5,
+      "n": 47
+    },
+    "G4_p_baja": {
+      "valor": 0.3404255319148936,
+      "baja": 16,
+      "n": 47
+    },
+    "G4_zonas": {
+      "aceptada": 22,
+      "duda": 9,
+      "baja": 16,
+      "sin_detecciones": 1,
+      "error": 0
+    },
+    "G4x_sin_detecciones": {
+      "valor": 0.020833333333333332,
+      "sin_detecciones": 1,
+      "n": 48
+    },
+    "G4x_detecciones_por_clase": {
+      "person": {
+        "baja": 16,
+        "aceptada": 26,
+        "duda": 10,
+        "total": 52
+      },
+      "cat": {
+        "aceptada": 16,
+        "baja": 20,
+        "duda": 2,
+        "total": 38
+      },
+      "tv": {
+        "baja": 28,
+        "duda": 4,
+        "total": 32
+      },
+      "dog": {
+        "baja": 13,
+        "aceptada": 8,
+        "duda": 10,
+        "total": 31
+      },
+      "teddy bear": {
+        "baja": 7,
+        "duda": 2,
+        "total": 9
+      },
+      "donut": {
+        "duda": 2,
+        "baja": 4,
+        "total": 6
+      },
+      "vase": {
+        "duda": 2,
+        "baja": 3,
+        "total": 5
+      },
+      "suitcase": {
+        "baja": 2,
+        "total": 2
+      },
+      "chair": {
+        "baja": 2,
+        "total": 2
+      },
+      "bench": {
+        "baja": 2,
+        "total": 2
+      },
+      "car": {
+        "baja": 2,
+        "total": 2
+      },
+      "tie": {
+        "baja": 2,
+        "total": 2
+      },
+      "cell phone": {
+        "baja": 2,
+        "total": 2
+      },
+      "bottle": {
+        "baja": 1,
+        "total": 1
+      }
+    },
+    "G4x_psi_referencia": {
+      "valor": 0.1582668646275941,
+      "bins": [
+        0.1,
+        0.25,
+        0.4,
+        0.55,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "distribucion": [
+        5,
+        11,
+        7,
+        2,
+        9,
+        13
+      ],
+      "distribucion_referencia": [
+        11,
+        9,
+        14,
+        5,
+        9,
+        14
+      ],
+      "n": 47,
+      "n_referencia": 62
+    },
+    "G5_imagenes_vinculadas": {
+      "valor": 1.0,
+      "vinculadas": 31,
+      "n": 31
+    },
+    "G5x_cobertura_trazabilidad": {
+      "valor": 1.0,
+      "completos": 48,
+      "n": 48
+    },
+    "G6_version_esperada_vs_reportada": {
+      "valor": 1.0,
+      "coinciden": 48,
+      "n": 48,
+      "esperada": "c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d",
+      "distribucion": {
+        "yolox_nano@c789161ed43c": 48
+      }
+    },
+    "G6x_reportes_por_fuente": {
+      "carrito-esp32cam": {
+        "reportes": 48,
+        "s_desde_ultimo_al_cierre": 0.0009999275207519531
+      }
+    },
+    "G7_alertas_activas": {
+      "max_por_ventana": 2,
+      "al_cierre": 0,
+      "serie": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        2,
+        0,
+        0
+      ],
+      "serie_al_cierre_de_ventana": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        0,
+        0,
+        0
+      ],
+      "abiertas_total": 2,
+      "resueltas": 2,
+      "n_ventanas": 8
+    },
+    "G7x_tiempo_deteccion_s": {
+      "e1-cambio-sostenido-20261112T045149Z-a01": {
+        "rule_id": "baja-confianza-v1",
+        "valor": 2.5230000019073486,
+        "inicio_condicion": "2026-11-12T04:51:55.321Z",
+        "apertura": "2026-11-12T04:51:57.844Z"
+      },
+      "e1-cambio-sostenido-20261112T045149Z-a02": {
+        "rule_id": "cambio-sostenido-v1",
+        "valor": 8.523000001907349,
+        "inicio_condicion": "2026-11-12T04:51:55.321Z",
+        "apertura": "2026-11-12T04:52:03.844Z"
+      }
+    }
+  }
+}
