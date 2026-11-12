@@ -62,7 +62,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--salida", type=Path, required=True)
     args = ap.parse_args(argv)
     ref = construir(args.corrida)
-    args.salida.write_text(json.dumps(ref, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.salida.write_text(
+        json.dumps(ref, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     print(json.dumps({k: ref[k] for k in ("run_id", "n_puntuados", "zonas", "p_baja")}, indent=2))
     return 0
 

@@ -153,7 +153,7 @@ class Monitor:
             **extra,
         }
         (self.dir / "run.json").write_text(
-            json.dumps(run, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            json.dumps(run, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
         )
 
     # ---------------------------------------------------------------- capturas
@@ -391,10 +391,20 @@ class Monitor:
                 abierta["event_ids"] += [e for e in eids if e not in abierta["event_ids"]]
                 self._capturar_alerta(eids)
         elif resultado == reglas.NO_CUMPLE and abierta is not None:
-            pb = "insuficiente" if p is None else f"{p:.2f}"
-            self._resolver(
-                nombre, v.ventana_id, f"La ventana {v.indice} ya no cumple la condicion (p_baja={pb})"
+            self._resolver(nombre, v.ventana_id, self._motivo_resolucion(nombre, v.indice, c, p))
+
+    def _motivo_resolucion(self, nombre: str, indice: int, c: dict[str, int], p: float | None) -> str:
+        if nombre == "errores_inferencia":
+            return (
+                f"La ventana {indice} tiene {c['errores']} de {c['intentos']} frames con error: ya no cumple"
             )
+        if nombre == "cambio_sostenido":
+            return (
+                f"La ventana {indice} tiene p_baja={p:.2f} <= limite {self.sostenida.limite:.3f}: "
+                "se reinicia la racha"
+            )
+        umbral = self.cfg.reglas[nombre].parametros["proporcion_minima"]
+        return f"La ventana {indice} tiene p_baja={p:.2f} < {umbral}: ya no cumple"
 
     def _resolver(self, nombre: str, ventana_id: str | None, motivo: str) -> None:
         abierta = self.abiertas.pop(nombre)

@@ -316,7 +316,7 @@ def calcular(dir_run: Path) -> dict[str, Any]:
 def escribir(dir_run: Path) -> dict[str, Any]:
     datos = calcular(dir_run)
     (dir_run / "metricas.json").write_text(
-        json.dumps(datos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(datos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
     )
     return datos
 

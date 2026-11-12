@@ -22,5 +22,5 @@ modelo real, nunca se escriben a mano.
 | Carpeta | Origen | Transformación | Uso |
 | --- | --- | --- | --- |
 | `poca-luz/` | S5 (12) | `GaussianBlur(3)` y `Brightness(0.30)`: poca luz con desenfoque | C2 |
-| `desenfoque/` | S5 y S2 (29) | `GaussianBlur(7)`: cámara fuera de foco | Extra E1 |
+| `desenfoque/` | S5 (12) | `GaussianBlur(7)`: cámara fuera de foco | Extra E1 |
 | `corruptas/` | S5 (5) | 4 JPEG truncados al 30 % de sus bytes y 1 archivo vacío | Extra E2 |

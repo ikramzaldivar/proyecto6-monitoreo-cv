@@ -8,7 +8,7 @@ el frame y SHA-256 de origen y la transformacion aplicada. Es determinista para 
 version de Pillow (la version usada queda en el manifiesto).
 
 - poca-luz/     S5 con desenfoque gaussiano radio 3 y brillo x0.30 (C2).
-- desenfoque/   S5 y S2 con desenfoque gaussiano radio 7: camara fuera de foco (extra E1).
+- desenfoque/   S5 con desenfoque gaussiano radio 7: camara fuera de foco (extra E1).
 - corruptas/    4 frames de S5 truncados al 30 % de sus bytes y 1 archivo vacio (extra E2).
 """
 
@@ -118,7 +118,7 @@ def main() -> int:
     )
     imagen(
         "desenfoque",
-        ["S5", "S2"],
+        ["S5"],
         "desenfoque",
         "GaussianBlur(radio=7)",
         lambda im: im.filter(ImageFilter.GaussianBlur(7)),
