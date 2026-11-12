@@ -1,0 +1,196 @@
+{
+  "run_id": "c2-baja-confianza-20261112T042129Z",
+  "calculado_desde": [
+    "run.json",
+    "eventos.jsonl",
+    "ventanas.jsonl",
+    "alertas.jsonl",
+    "capturas.jsonl",
+    "config/"
+  ],
+  "metodo_percentil": "nearest-rank",
+  "resumen": {
+    "run_id": "c2-baja-confianza-20261112T042129Z",
+    "frames": 12,
+    "zonas": {
+      "aceptada": 4,
+      "duda": 1,
+      "baja": 7,
+      "sin_detecciones": 0,
+      "error": 0
+    },
+    "ventanas": 2,
+    "ventanas_suficientes": 2,
+    "ventanas_insuficientes": 0,
+    "alertas": [
+      "c2-baja-confianza-20261112T042129Z-a01 baja-confianza-v1"
+    ],
+    "p_baja": 0.5833333333333334,
+    "inferencia_p95_ms": 15.943,
+    "fps_procesamiento": 2.1672385999898984,
+    "imagenes_vinculadas": 1.0
+  },
+  "metricas": {
+    "G1_tiempo_inferencia_ms": {
+      "p50": 9.378,
+      "p95": 15.943,
+      "n": 12
+    },
+    "G1x_tasa_errores": {
+      "valor": 0.0,
+      "n": 12
+    },
+    "G2_fps_procesamiento": {
+      "valor": 2.1672385999898984,
+      "n": 12,
+      "duracion_s": 5.536999940872192
+    },
+    "G2x_latencia_e2e_ms": {
+      "p50": 21.956,
+      "p95": 38.624,
+      "max": 38.624,
+      "n": 12
+    },
+    "G2x_descartados": {
+      "saturacion": 0,
+      "muestreo": 0,
+      "emitidos": 12,
+      "procesados": 12
+    },
+    "G3_rss_mb": {
+      "max": 79.44,
+      "media": 79.29,
+      "n": 12
+    },
+    "G3x_cpu_pct_proceso": {
+      "media": 35.85454545454545,
+      "max": 53.0,
+      "n": 11
+    },
+    "G4_p_baja": {
+      "valor": 0.5833333333333334,
+      "baja": 7,
+      "n": 12
+    },
+    "G4_zonas": {
+      "aceptada": 4,
+      "duda": 1,
+      "baja": 7,
+      "sin_detecciones": 0,
+      "error": 0
+    },
+    "G4x_sin_detecciones": {
+      "valor": 0.0,
+      "sin_detecciones": 0,
+      "n": 12
+    },
+    "G4x_detecciones_por_clase": {
+      "person": {
+        "baja": 9,
+        "aceptada": 6,
+        "duda": 6,
+        "total": 21
+      },
+      "cat": {
+        "baja": 10,
+        "total": 10
+      },
+      "tv": {
+        "baja": 8,
+        "duda": 1,
+        "total": 9
+      },
+      "vase": {
+        "baja": 3,
+        "total": 3
+      },
+      "donut": {
+        "duda": 1,
+        "baja": 1,
+        "total": 2
+      },
+      "dog": {
+        "baja": 1,
+        "total": 1
+      },
+      "teddy bear": {
+        "baja": 1,
+        "total": 1
+      }
+    },
+    "G4x_psi_referencia": {
+      "valor": 1.3900438727001034,
+      "bins": [
+        0.1,
+        0.25,
+        0.4,
+        0.55,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "distribucion": [
+        1,
+        6,
+        1,
+        0,
+        3,
+        1
+      ],
+      "distribucion_referencia": [
+        11,
+        9,
+        14,
+        5,
+        9,
+        14
+      ],
+      "n": 12,
+      "n_referencia": 62
+    },
+    "G5_imagenes_vinculadas": {
+      "valor": 1.0,
+      "vinculadas": 9,
+      "n": 9
+    },
+    "G5x_cobertura_trazabilidad": {
+      "valor": 1.0,
+      "completos": 12,
+      "n": 12
+    },
+    "G6_version_esperada_vs_reportada": {
+      "valor": 1.0,
+      "coinciden": 12,
+      "n": 12,
+      "esperada": "c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d",
+      "distribucion": {
+        "yolox_nano@c789161ed43c": 12
+      }
+    },
+    "G6x_reportes_por_fuente": {
+      "carrito-esp32cam": {
+        "reportes": 12,
+        "s_desde_ultimo_al_cierre": 0.0
+      }
+    },
+    "G7_alertas_activas": {
+      "max_por_ventana": 1,
+      "al_cierre": 0,
+      "serie": [
+        1,
+        0
+      ],
+      "abiertas_total": 1,
+      "resueltas": 1,
+      "n_ventanas": 2
+    },
+    "G7x_tiempo_deteccion_s": {
+      "c2-baja-confianza-20261112T042129Z-a01": {
+        "rule_id": "baja-confianza-v1",
+        "valor": 2.5199999809265137,
+        "inicio_condicion": "2026-11-12T04:21:29.594Z",
+        "apertura": "2026-11-12T04:21:32.114Z"
+      }
+    }
+  }
+}

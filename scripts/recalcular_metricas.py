@@ -193,6 +193,49 @@ def verificar(d: Path) -> int:
             for a, r in zip(dist, ref["distribucion"], strict=True)
         )
         v.igual("G4x PSI frente a referencia", psi, met["G4x_psi_referencia"]["valor"])
+
+    # 5. metricas adicionales
+    n = len(eventos)
+    v.igual(
+        "G1x tasa de errores",
+        sum(e["status"] == "error" for e in eventos) / n,
+        met["G1x_tasa_errores"]["valor"],
+    )
+    e2e = [e["tiempos_ms"]["extremo_a_extremo"] for e in eventos]
+    v.igual("G2x latencia e2e p95 (ms)", nearest_rank(e2e, 0.95), met["G2x_latencia_e2e_ms"]["p95"])
+    cpu = [e["recursos"]["cpu_pct_proceso"] for e in eventos[1:]]
+    if cpu:
+        v.igual("G3x CPU media (%)", sum(cpu) / len(cpu), met["G3x_cpu_pct_proceso"]["media"])
+    if ok:
+        sin = sum(e["score_frame"] is None for e in ok)
+        v.igual("G4x frames sin detecciones", sin / len(ok), met["G4x_sin_detecciones"]["valor"])
+    clases: dict[str, int] = {}
+    for e in ok:
+        for x in e["detections"]:
+            clases[x["class_name"]] = clases.get(x["class_name"], 0) + 1
+    v.igual(
+        "G4x detecciones por clase (total)",
+        clases,
+        {k: c["total"] for k, c in met["G4x_detecciones_por_clase"].items()},
+    )
+    campos = ("event_id", "run_id", "frame_id", "timestamp", "source_id", "model")
+    campos += ("status", "config_ref", "ventana_id", "entrada")
+    completos = 0
+    for e in eventos:
+        entrada = RAIZ / e["entrada"]["ruta"]
+        integra = (
+            entrada.is_file()
+            and hashlib.sha256(entrada.read_bytes()).hexdigest() == e["entrada"]["sha256_manifiesto"]
+        )
+        completos += all(e.get(c) not in (None, "") for c in campos) and integra
+    v.igual("G5x cobertura de trazabilidad", completos / n, met["G5x_cobertura_trazabilidad"]["valor"])
+    tdet = {
+        a["alert_id"]: segundos(a["timestamp"]) - segundos(a["inicio_condicion"])
+        for a in aperturas
+        if a.get("inicio_condicion")
+    }
+    registrado = {k: x["valor"] for k, x in met["G7x_tiempo_deteccion_s"].items()}
+    v.igual("G7x tiempo de deteccion (s)", tdet, registrado)
     print(f"  -> {v.total - v.fallos}/{v.total} comprobaciones coinciden")
     return v.fallos
 

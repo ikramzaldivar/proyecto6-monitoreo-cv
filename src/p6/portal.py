@@ -407,7 +407,7 @@ def _ejes(titulo_y: str) -> list[str]:
 def _umbral(v: float, etiqueta: str, clase: str) -> str:
     return (
         f'<line x1="{M}" y1="{_y(v):.1f}" x2="{ANCHO - M}" y2="{_y(v):.1f}" class="{clase}"/>'
-        f'<text x="{ANCHO - M + 4}" y="{_y(v) + 4:.1f}" class="tick">{etiqueta}</text>'
+        f'<text x="{ANCHO - M - 2}" y="{_y(v) - 3:.1f}" class="tick" text-anchor="end">{etiqueta}</text>'
     )
 
 

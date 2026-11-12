@@ -1,0 +1,14 @@
+escenario_id: e3-interrupcion-fuente
+descripcion: >-
+  Extra E3, interrupcion del stream. S5 original, una pausa de 6 s sin frames (la camara
+  deja de enviar) y despues S2 original. 2 fps.
+esperado: >-
+  Durante la pausa, al pasar 3 s sin frames, fuente-detenida-v1 se abre referenciando el
+  ultimo evento recibido. Con el primer frame de S2 la alerta se resuelve y el
+  procesamiento continua; la pausa aparece en la latencia y en el FPS de la corrida.
+segmentos:
+  - manifiesto: datos/carrito/capturas.csv
+    secuencias: [S5]
+  - pausa_s: 6
+  - manifiesto: datos/carrito/capturas.csv
+    secuencias: [S2]

@@ -1,0 +1,133 @@
+
+== c1-normal-20261112T042108Z
+  OK    eventos con zona y score_frame consistentes: recalculado=41 registrado=41
+  OK    ventanas con p_baja y reglas recalculadas iguales: recalculado=7 registrado=7
+  OK    alertas abiertas que cumplen su regla y cuyos eventos existen: recalculado=0 registrado=0
+  OK    G1 p50 tiempo de inferencia (ms): recalculado=10.989 registrado=10.989
+  OK    G1 p95 tiempo de inferencia (ms): recalculado=21.062 registrado=21.062
+  OK    G2 FPS de procesamiento: recalculado=2.0465209226287318 registrado=2.0465209226287318
+  OK    G3 RSS max (MB): recalculado=79.79 registrado=79.79
+  OK    G4 p_baja: recalculado=0.13793103448275862 registrado=0.13793103448275862
+  OK    G5 imagenes vinculadas: recalculado=1.0 registrado=1.0
+  OK    G6 version esperada vs reportada: recalculado=1.0 registrado=1.0
+  OK    G7 alertas activas por ventana: recalculado=[0, 0, 0, 0, 0, 0, 0] registrado=[0, 0, 0, 0, 0, 0, 0]
+  OK    G4x PSI frente a referencia: recalculado=1.129406480361582 registrado=1.129406480361582
+  OK    G1x tasa de errores: recalculado=0.0 registrado=0.0
+  OK    G2x latencia e2e p95 (ms): recalculado=40.238 registrado=40.238
+  OK    G3x CPU media (%): recalculado=34.45 registrado=34.45
+  OK    G4x frames sin detecciones: recalculado=0.2926829268292683 registrado=0.2926829268292683
+  OK    G4x detecciones por clase (total): recalculado={'microwave': 1, 'cat': 15, 'tv': 7, 'suitcase': 1, 'chair': 1, 'dog': 18, 'vase': 1, 'person': 21, 'teddy bear': 9, 'bench': 1, 'car': 1, 'tie': 1, 'kite': 3, 'toilet': 4, 'sink': 1, 'fire hydrant': 4, 'traffic light': 1, 'refrigerator': 3, 'bird': 1} registrado={'person': 21, 'dog': 18, 'cat': 15, 'teddy bear': 9, 'tv': 7, 'toilet': 4, 'fire hydrant': 4, 'kite': 3, 'refrigerator': 3, 'microwave': 1, 'suitcase': 1, 'chair': 1, 'vase': 1, 'bench': 1, 'car': 1, 'tie': 1, 'sink': 1, 'traffic light': 1, 'bird': 1}
+  OK    G5x cobertura de trazabilidad: recalculado=1.0 registrado=1.0
+  OK    G7x tiempo de deteccion (s): recalculado={} registrado={}
+  -> 19/19 comprobaciones coinciden
+
+== c2-baja-confianza-20261112T042129Z
+  OK    eventos con zona y score_frame consistentes: recalculado=12 registrado=12
+  OK    ventanas con p_baja y reglas recalculadas iguales: recalculado=2 registrado=2
+  OK    alertas abiertas que cumplen su regla y cuyos eventos existen: recalculado=1 registrado=1
+  OK    G1 p50 tiempo de inferencia (ms): recalculado=9.378 registrado=9.378
+  OK    G1 p95 tiempo de inferencia (ms): recalculado=15.943 registrado=15.943
+  OK    G2 FPS de procesamiento: recalculado=2.1672385999898984 registrado=2.1672385999898984
+  OK    G3 RSS max (MB): recalculado=79.44 registrado=79.44
+  OK    G4 p_baja: recalculado=0.5833333333333334 registrado=0.5833333333333334
+  OK    G5 imagenes vinculadas: recalculado=1.0 registrado=1.0
+  OK    G6 version esperada vs reportada: recalculado=1.0 registrado=1.0
+  OK    G7 alertas activas por ventana: recalculado=[1, 0] registrado=[1, 0]
+  OK    G4x PSI frente a referencia: recalculado=1.3900438727001034 registrado=1.3900438727001034
+  OK    G1x tasa de errores: recalculado=0.0 registrado=0.0
+  OK    G2x latencia e2e p95 (ms): recalculado=38.624 registrado=38.624
+  OK    G3x CPU media (%): recalculado=35.85454545454545 registrado=35.85454545454545
+  OK    G4x frames sin detecciones: recalculado=0.0 registrado=0.0
+  OK    G4x detecciones por clase (total): recalculado={'tv': 9, 'cat': 10, 'person': 21, 'vase': 3, 'dog': 1, 'donut': 2, 'teddy bear': 1} registrado={'person': 21, 'cat': 10, 'tv': 9, 'vase': 3, 'donut': 2, 'dog': 1, 'teddy bear': 1}
+  OK    G5x cobertura de trazabilidad: recalculado=1.0 registrado=1.0
+  OK    G7x tiempo de deteccion (s): recalculado={'c2-baja-confianza-20261112T042129Z-a01': 2.5199999809265137} registrado={'c2-baja-confianza-20261112T042129Z-a01': 2.5199999809265137}
+  -> 19/19 comprobaciones coinciden
+
+== e1-cambio-sostenido-20261112T042135Z
+  OK    eventos con zona y score_frame consistentes: recalculado=48 registrado=48
+  OK    ventanas con p_baja y reglas recalculadas iguales: recalculado=8 registrado=8
+  OK    alertas abiertas que cumplen su regla y cuyos eventos existen: recalculado=2 registrado=2
+  OK    G1 p50 tiempo de inferencia (ms): recalculado=10.097 registrado=10.097
+  OK    G1 p95 tiempo de inferencia (ms): recalculado=21.93 registrado=21.93
+  OK    G2 FPS de procesamiento: recalculado=2.0407295480756145 registrado=2.0407295480756145
+  OK    G3 RSS max (MB): recalculado=83.06 registrado=83.06
+  OK    G4 p_baja: recalculado=0.3404255319148936 registrado=0.3404255319148936
+  OK    G5 imagenes vinculadas: recalculado=1.0 registrado=1.0
+  OK    G6 version esperada vs reportada: recalculado=1.0 registrado=1.0
+  OK    G7 alertas activas por ventana: recalculado=[0, 0, 1, 1, 2, 0, 0, 0] registrado=[0, 0, 1, 1, 2, 0, 0, 0]
+  OK    G4x PSI frente a referencia: recalculado=0.1582668646275941 registrado=0.1582668646275941
+  OK    G1x tasa de errores: recalculado=0.0 registrado=0.0
+  OK    G2x latencia e2e p95 (ms): recalculado=41.159 registrado=41.159
+  OK    G3x CPU media (%): recalculado=35.42553191489362 registrado=35.42553191489362
+  OK    G4x frames sin detecciones: recalculado=0.020833333333333332 registrado=0.020833333333333332
+  OK    G4x detecciones por clase (total): recalculado={'cat': 38, 'tv': 32, 'suitcase': 2, 'chair': 2, 'dog': 31, 'vase': 5, 'person': 52, 'teddy bear': 9, 'bench': 2, 'car': 2, 'tie': 2, 'donut': 6, 'cell phone': 2, 'bottle': 1} registrado={'person': 52, 'cat': 38, 'tv': 32, 'dog': 31, 'teddy bear': 9, 'donut': 6, 'vase': 5, 'suitcase': 2, 'chair': 2, 'bench': 2, 'car': 2, 'tie': 2, 'cell phone': 2, 'bottle': 1}
+  OK    G5x cobertura de trazabilidad: recalculado=1.0 registrado=1.0
+  OK    G7x tiempo de deteccion (s): recalculado={'e1-cambio-sostenido-20261112T042135Z-a01': 2.5239999294281006, 'e1-cambio-sostenido-20261112T042135Z-a02': 8.529000043869019} registrado={'e1-cambio-sostenido-20261112T042135Z-a01': 2.5239999294281006, 'e1-cambio-sostenido-20261112T042135Z-a02': 8.529000043869019}
+  -> 19/19 comprobaciones coinciden
+
+== e2-entradas-corruptas-20261112T042201Z
+  OK    eventos con zona y score_frame consistentes: recalculado=29 registrado=29
+  OK    ventanas con p_baja y reglas recalculadas iguales: recalculado=5 registrado=5
+  OK    alertas abiertas que cumplen su regla y cuyos eventos existen: recalculado=1 registrado=1
+  OK    G1 p50 tiempo de inferencia (ms): recalculado=9.649 registrado=9.649
+  OK    G1 p95 tiempo de inferencia (ms): recalculado=13.97 registrado=13.97
+  OK    G2 FPS de procesamiento: recalculado=2.0692115787563004 registrado=2.0692115787563004
+  OK    G3 RSS max (MB): recalculado=84.55 registrado=84.55
+  OK    G4 p_baja: recalculado=0.0 registrado=0.0
+  OK    G5 imagenes vinculadas: recalculado=1.0 registrado=1.0
+  OK    G6 version esperada vs reportada: recalculado=1.0 registrado=1.0
+  OK    G7 alertas activas por ventana: recalculado=[0, 0, 1, 0, 0] registrado=[0, 0, 1, 0, 0]
+  OK    G4x PSI frente a referencia: recalculado=2.675657143034434 registrado=2.675657143034434
+  OK    G1x tasa de errores: recalculado=0.1724137931034483 registrado=0.1724137931034483
+  OK    G2x latencia e2e p95 (ms): recalculado=44.973 registrado=44.973
+  OK    G3x CPU media (%): recalculado=27.089285714285715 registrado=27.089285714285715
+  OK    G4x frames sin detecciones: recalculado=0.0 registrado=0.0
+  OK    G4x detecciones por clase (total): recalculado={'cat': 28, 'tv': 14, 'suitcase': 2, 'chair': 2, 'dog': 30, 'vase': 2, 'person': 30, 'teddy bear': 8, 'bench': 2, 'car': 2, 'tie': 2} registrado={'dog': 30, 'person': 30, 'cat': 28, 'tv': 14, 'teddy bear': 8, 'suitcase': 2, 'chair': 2, 'vase': 2, 'bench': 2, 'car': 2, 'tie': 2}
+  OK    G5x cobertura de trazabilidad: recalculado=1.0 registrado=1.0
+  OK    G7x tiempo de deteccion (s): recalculado={'e2-entradas-corruptas-20261112T042201Z-a01': 2.515000104904175} registrado={'e2-entradas-corruptas-20261112T042201Z-a01': 2.515000104904175}
+  -> 19/19 comprobaciones coinciden
+
+== e3-interrupcion-fuente-20261112T042216Z
+  OK    eventos con zona y score_frame consistentes: recalculado=29 registrado=29
+  OK    ventanas con p_baja y reglas recalculadas iguales: recalculado=5 registrado=5
+  OK    alertas abiertas que cumplen su regla y cuyos eventos existen: recalculado=1 registrado=1
+  OK    G1 p50 tiempo de inferencia (ms): recalculado=11.204 registrado=11.204
+  OK    G1 p95 tiempo de inferencia (ms): recalculado=26.103 registrado=26.103
+  OK    G2 FPS de procesamiento: recalculado=1.4858840859380902 registrado=1.4858840859380902
+  OK    G3 RSS max (MB): recalculado=79.45 registrado=79.45
+  OK    G4 p_baja: recalculado=0.10714285714285714 registrado=0.10714285714285714
+  OK    G5 imagenes vinculadas: recalculado=1.0 registrado=1.0
+  OK    G6 version esperada vs reportada: recalculado=1.0 registrado=1.0
+  OK    G7 alertas activas por ventana: recalculado=[0, 0, 0, 0, 0] registrado=[0, 0, 0, 0, 0]
+  OK    G4x PSI frente a referencia: recalculado=1.1702718452836482 registrado=1.1702718452836482
+  OK    G1x tasa de errores: recalculado=0.0 registrado=0.0
+  OK    G2x latencia e2e p95 (ms): recalculado=44.306 registrado=44.306
+  OK    G3x CPU media (%): recalculado=34.19285714285714 registrado=34.19285714285714
+  OK    G4x frames sin detecciones: recalculado=0.034482758620689655 registrado=0.034482758620689655
+  OK    G4x detecciones por clase (total): recalculado={'cat': 15, 'tv': 7, 'suitcase': 1, 'chair': 1, 'dog': 18, 'vase': 1, 'person': 21, 'teddy bear': 9, 'bench': 1, 'car': 1, 'tie': 1, 'kite': 3, 'toilet': 4, 'sink': 1, 'fire hydrant': 4, 'traffic light': 1, 'refrigerator': 3, 'bird': 1} registrado={'person': 21, 'dog': 18, 'cat': 15, 'teddy bear': 9, 'tv': 7, 'toilet': 4, 'fire hydrant': 4, 'kite': 3, 'refrigerator': 3, 'suitcase': 1, 'chair': 1, 'vase': 1, 'bench': 1, 'car': 1, 'tie': 1, 'sink': 1, 'traffic light': 1, 'bird': 1}
+  OK    G5x cobertura de trazabilidad: recalculado=1.0 registrado=1.0
+  OK    G7x tiempo de deteccion (s): recalculado={'e3-interrupcion-fuente-20261112T042216Z-a01': 3.0829999446868896} registrado={'e3-interrupcion-fuente-20261112T042216Z-a01': 3.0829999446868896}
+  -> 19/19 comprobaciones coinciden
+
+== r0-referencia-20261112T041654Z
+  OK    eventos con zona y score_frame consistentes: recalculado=78 registrado=78
+  OK    ventanas con p_baja y reglas recalculadas iguales: recalculado=13 registrado=13
+  OK    alertas abiertas que cumplen su regla y cuyos eventos existen: recalculado=2 registrado=2
+  OK    G1 p50 tiempo de inferencia (ms): recalculado=9.623 registrado=9.623
+  OK    G1 p95 tiempo de inferencia (ms): recalculado=17.826 registrado=17.826
+  OK    G2 FPS de procesamiento: recalculado=2.0242914945688 registrado=2.0242914945688
+  OK    G3 RSS max (MB): recalculado=83.21 registrado=83.21
+  OK    G4 p_baja: recalculado=0.3225806451612903 registrado=0.3225806451612903
+  OK    G5 imagenes vinculadas: recalculado=1.0 registrado=1.0
+  OK    G6 version esperada vs reportada: recalculado=1.0 registrado=1.0
+  OK    G7 alertas activas por ventana: recalculado=[0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0] registrado=[0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0]
+  OK    G1x tasa de errores: recalculado=0.0 registrado=0.0
+  OK    G2x latencia e2e p95 (ms): recalculado=52.642 registrado=52.642
+  OK    G3x CPU media (%): recalculado=35.45194805194805 registrado=35.45194805194805
+  OK    G4x frames sin detecciones: recalculado=0.20512820512820512 registrado=0.20512820512820512
+  OK    G4x detecciones por clase (total): recalculado={'microwave': 2, 'person': 31, 'kite': 6, 'dog': 20, 'teddy bear': 13, 'toilet': 11, 'sink': 5, 'fire hydrant': 5, 'traffic light': 6, 'refrigerator': 13, 'bird': 2, 'cat': 18, 'bear': 1, 'suitcase': 2, 'chair': 2, 'cell phone': 1, 'bottle': 2, 'horse': 2, 'oven': 9, 'umbrella': 4, 'tv': 7, 'vase': 1, 'bench': 1, 'car': 1, 'tie': 1} registrado={'person': 31, 'dog': 20, 'cat': 18, 'teddy bear': 13, 'refrigerator': 13, 'toilet': 11, 'oven': 9, 'tv': 7, 'kite': 6, 'traffic light': 6, 'sink': 5, 'fire hydrant': 5, 'umbrella': 4, 'microwave': 2, 'bird': 2, 'suitcase': 2, 'chair': 2, 'bottle': 2, 'horse': 2, 'bear': 1, 'cell phone': 1, 'vase': 1, 'bench': 1, 'car': 1, 'tie': 1}
+  OK    G5x cobertura de trazabilidad: recalculado=1.0 registrado=1.0
+  OK    G7x tiempo de deteccion (s): recalculado={'r0-referencia-20261112T041654Z-a01': 2.55400013923645, 'r0-referencia-20261112T041654Z-a02': 2.5269999504089355} registrado={'r0-referencia-20261112T041654Z-a01': 2.55400013923645, 'r0-referencia-20261112T041654Z-a02': 2.5269999504089355}
+  -> 18/18 comprobaciones coinciden
+
+RESULTADO: todo coincide

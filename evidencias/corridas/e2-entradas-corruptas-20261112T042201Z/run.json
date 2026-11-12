@@ -1,0 +1,76 @@
+{
+  "run_id": "e2-entradas-corruptas-20261112T042201Z",
+  "escenario_id": "e2-entradas-corruptas",
+  "escenario": {
+    "escenario_id": "e2-entradas-corruptas",
+    "descripcion": "Extra E2, error de inferencia por entradas corruptas. 6 frames validos de S5, luego 5 archivos ilegibles (4 JPEG truncados y 1 vacio, datos/preparadas/corruptas) y despues S5 original otra vez. 2 fps.",
+    "esperado": "Los 5 archivos ilegibles quedan como status=error con el mensaje del decodificador, sin puntuacion ni zona y con sus bytes conservados. La ventana que los contiene cumple errores-inferencia-v1 (>= 50 % de errores con >= 3 intentos) y abre la alerta. Al volver los frames validos, la siguiente ventana no cumple y la alerta se resuelve.",
+    "segmentos": [
+      {
+        "manifiesto": "datos/carrito/capturas.csv",
+        "secuencias": [
+          "S5"
+        ]
+      },
+      {
+        "manifiesto": "datos/preparadas/corruptas/capturas.csv"
+      },
+      {
+        "manifiesto": "datos/carrito/capturas.csv",
+        "secuencias": [
+          "S5"
+        ]
+      }
+    ],
+    "_archivo": "escenarios/e2-entradas-corruptas.yaml"
+  },
+  "escenario_archivo": "escenarios/e2-entradas-corruptas.yaml",
+  "inicio_utc": "2026-11-12T04:22:01.325Z",
+  "fin_utc": "2026-11-12T04:22:15.409Z",
+  "git": {
+    "commit": "de41810e9c3eea70db01007c9698284c37d3b040",
+    "cambios_sin_commit_en_codigo": false
+  },
+  "source_id": "carrito-esp32cam",
+  "task": "detection",
+  "frames_planeados": 29,
+  "config_ref": "monitoreo-v1@2ea33802ba0c",
+  "config_sha256": "2ea33802ba0c0ceaba3d1376eede3cc85a8ab64675dfb69a4fdea80f01059255",
+  "detector_config_sha256": "c0855db75854587af5beeb013aad35c5c855222d7437dd7b678a078110784ce9",
+  "referencia": {
+    "archivo": "config/referencia.json",
+    "sha256": "4f55629e95b3e42ad46ba3f9f35ca92f365182a7d61c6e76100dce626c1e17a5",
+    "run_id": "r0-referencia-20261112T041654Z",
+    "p_baja": 0.3225806451612903
+  },
+  "modelo": {
+    "nombre": "yolox_nano",
+    "version": "0.1.1rc0",
+    "archivo": "yolox_nano.onnx",
+    "sha256": "c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d"
+  },
+  "politica": {
+    "umbral_inferior": 0.4,
+    "umbral_superior": 0.7,
+    "piso_salida": 0.1,
+    "nms_iou": 0.45,
+    "tamano_entrada": 416
+  },
+  "entorno": {
+    "python": "3.12.10",
+    "onnxruntime": "1.31.1",
+    "proveedor": "CPUExecutionProvider",
+    "so": "Windows 11 (10.0.22631)",
+    "cpu": "Intel64 Family 6 Model 165 Stepping 2, GenuineIntel",
+    "nucleos_logicos": 8,
+    "ram_total_gb": 7.78
+  },
+  "estado": "terminada",
+  "fuente": {
+    "fps_configurado": 2.0,
+    "frames_emitidos": 29,
+    "frames_procesados": 29,
+    "descartados_saturacion": 0
+  },
+  "alertas_abiertas_al_final": []
+}
