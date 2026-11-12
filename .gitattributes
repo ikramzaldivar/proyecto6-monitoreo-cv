@@ -1,0 +1,4 @@
+# LF en todos los textos: el SHA-256 de config/*.yaml (config_ref) no cambia entre clones
+* text=auto eol=lf
+*.jpg binary
+*.onnx binary
