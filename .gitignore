@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+# pesos: se descargan con scripts/descargar_modelo.py (SHA-256 en modelo/descriptor.yaml)
+modelo/*.onnx
+modelo/*.part
+# indice del portal: se reconstruye desde los JSONL al arrancar
+evidencias/portal.sqlite

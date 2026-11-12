@@ -1,0 +1,8 @@
+{% macro zona(z, status=None) -%}
+{%- if status == 'error' %}<span class="chip z-error">error</span>
+{%- elif z %}<span class="chip z-{{ z }}">{{ z }}</span>
+{%- else %}<span class="chip z-sin">sin detecciones</span>{% endif -%}
+{%- endmacro %}
+{% macro sev(s) -%}<span class="chip s-{{ s }}">{{ s }}</span>{%- endmacro %}
+{% macro est(e) -%}<span class="chip e-{{ e }}">{{ e }}</span>{%- endmacro %}
+{% macro corto(id) -%}<span class="mono" title="{{ id }}">{{ id.split('-')[-1] if id else '' }}</span>{%- endmacro %}

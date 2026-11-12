@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% from "macros.html" import zona, sev, est %}
+{% block titulo %}Alerta{% endblock %}
+{% block contenido %}
+<p><a href="{{ url_for('alertas', run=a.run_id) }}">← alertas de la corrida</a></p>
+<h1>Alerta <span class="mono">{{ a.alert_id }}</span> {{ sev(a.severidad) }} {{ est(a.estado) }}</h1>
+<div class="dos">
+<div class="panel"><dl class="campos">
+  <dt>Regla</dt><dd><b>{{ a.rule_id }}</b></dd>
+  <dt>Abierta (UTC)</dt><dd class="mono">{{ a.abierta }}</dd>
+  <dt>Resuelta (UTC)</dt><dd class="mono">{{ a.resuelta or '— (abierta al terminar la corrida)' }}</dd>
+  <dt>Motivo</dt><dd>{{ a.motivo }}</dd>
+  <dt>Acción sugerida</dt><dd>{{ a.accion }}</dd>
+  <dt>Inicio de la condición</dt><dd class="mono">{{ ap.inicio_condicion }}</dd>
+  <dt>Corrida</dt><dd><a href="{{ url_for('tablero', run=a.run_id) }}">{{ a.run_id }}</a></dd>
+  <dt>Configuración</dt><dd><a href="{{ url_for('corrida', run_id=a.run_id) }}#config" class="mono">{{ a.config_ref }}</a></dd>
+</dl></div>
+<div class="panel">
+  <h2 style="margin-top:0">Condición configurada</h2>
+  <pre>{{ json.dumps(ap.condicion, indent=2) }}</pre>
+  <h2>Valores observados al abrir</h2>
+  <pre>{{ json.dumps(ap.observado, indent=2, ensure_ascii=False) }}</pre>
+</div>
+</div>
+<h2>Ventanas que la originaron o la mantuvieron</h2>
+{% if ventanas %}
+<div class="tabla"><table><tr><th>Ventana</th><th>Desde – hasta</th><th>Intentos</th><th>Puntuados</th><th>Baja / duda / aceptada</th><th>Sin det.</th><th>Errores</th><th>p_baja</th><th>Estado</th><th>Reglas</th></tr>
+{% for v in ventanas %}{% set c = v.conteos %}
+<tr><td><a href="{{ url_for('ventana', ventana_id=v.ventana_id) }}" class="mono">v{{ v.indice }}</a></td><td class="mono">{{ v.desde[11:23] }} – {{ v.hasta[11:23] }}</td><td>{{ c.intentos }}</td><td>{{ c.puntuados }}</td><td>{{ c.baja }} / {{ c.duda }} / {{ c.aceptada }}</td><td>{{ c.sin_detecciones }}</td><td>{{ c.errores }}</td><td>{{ v.p_baja|num(2) }}</td><td>{{ v.estado }}</td><td class="mono" style="font-size:11px">{% for k, r in v.reglas.items() %}{{ k }}: {{ r }}<br>{% endfor %}</td></tr>
+{% endfor %}</table></div>
+{% else %}<p class="vacio">La alerta no está ligada a una ventana cerrada (regla evaluada por tiempo).</p>{% endif %}
+<h2>Eventos y capturas vinculados ({{ eventos|length }})</h2>
+{% if eventos %}
+<div class="galeria">
+{% for e in eventos %}
+  <div class="tarjeta">
+    {% if e.imagen_ref and e.status == 'ok' %}<a href="{{ url_for('evento', event_id=e.event_id) }}"><img src="{{ url_for('imagen', run_id=e.run_id, ref=e.imagen_ref) }}" alt="frame {{ e.seq }}"></a>{% endif %}
+    <div><a href="{{ url_for('evento', event_id=e.event_id) }}" class="mono">#{{ e.seq }}</a> {{ zona(e.zona, e.status) }} <span class="mono">{{ e.score|num(3) }}</span></div>
+    <div class="tenue" style="font-size:12px">{{ e.clase_top or e.error or 'sin detecciones' }}</div>
+  </div>
+{% endfor %}
+</div>
+{% else %}<p class="vacio">La alerta no referencia eventos.</p>{% endif %}
+<h2>Registros de la alerta (alertas.jsonl)</h2>
+<pre>{% for r in registros %}{{ json.dumps(r, ensure_ascii=False) }}
+{% endfor %}</pre>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% from "macros.html" import zona %}
+{% block titulo %}Eventos{% endblock %}
+{% block contenido %}
+<h1>Eventos de inferencia</h1>
+<form class="filtros" method="get">
+  <label>Corrida<select name="run"><option value="">todas</option>{% for c in corridas %}<option value="{{ c.run_id }}" {{ 'selected' if activos.run == c.run_id }}>{{ c.run_id }}</option>{% endfor %}</select></label>
+  <label>Zona<select name="zona"><option value="">todas</option>{% for z in ('aceptada','duda','baja') %}<option {{ 'selected' if activos.zona == z }}>{{ z }}</option>{% endfor %}</select></label>
+  <label>Status<select name="status"><option value="">todos</option>{% for s in ('ok','error') %}<option {{ 'selected' if activos.status == s }}>{{ s }}</option>{% endfor %}</select></label>
+  <label>Resultado<select name="resultado"><option value="">todos</option>{% for s in ('con_detecciones','sin_detecciones') %}<option {{ 'selected' if activos.resultado == s }}>{{ s }}</option>{% endfor %}</select></label>
+  <label>Clase detectada<select name="clase"><option value="">todas</option>{% for c in clases %}<option {{ 'selected' if activos.clase == c }}>{{ c }}</option>{% endfor %}</select></label>
+  <label>Secuencia<select name="secuencia"><option value="">todas</option>{% for c in secuencias %}<option {{ 'selected' if activos.secuencia == c }}>{{ c }}</option>{% endfor %}</select></label>
+  <label>Score menor que<input name="score_max" size="5" value="{{ activos.score_max or '' }}" placeholder="0.40"></label>
+  <label>Con captura<select name="capturado"><option value="">indistinto</option><option value="1" {{ 'selected' if activos.capturado }}>sí</option></select></label>
+  {% if activos.ventana %}<input type="hidden" name="ventana" value="{{ activos.ventana }}">{% endif %}
+  <button type="submit">Filtrar</button>
+  <a href="{{ url_for('eventos') }}">limpiar</a>
+  <a href="{{ url_for('exportar', **activos) }}">exportar CSV ({{ total }})</a>
+</form>
+<p class="tenue">{{ total }} eventos{% if activos %} con los filtros {% for k, v in activos.items() %}<code>{{ k }}={{ v }}</code> {% endfor %}{% endif %}. Más recientes primero.</p>
+{% if filas %}
+<div class="tabla"><table>
+<tr><th>Evento</th><th>Momento (UTC)</th><th>Fuente / secuencia</th><th>Status</th><th>Score frame</th><th>Zona</th><th>Clase top</th><th>Det.</th><th>Captura</th><th>Alertas</th><th>Ventana</th></tr>
+{% for e in filas %}
+<tr>
+  <td><a href="{{ url_for('evento', event_id=e.event_id) }}" class="mono">{{ e.run_id.rsplit('-',1)[0] }} #{{ e.seq }}</a></td>
+  <td class="mono">{{ e.timestamp[11:23] }}<br><span class="tenue">{{ e.timestamp[:10] }}</span></td>
+  <td>{{ e.source_id }}<br><span class="tenue">{{ e.sequence_id }}</span></td>
+  <td>{{ e.status }}{% if e.error %}<br><span class="tenue" title="{{ e.error }}">{{ e.error[:40] }}…</span>{% endif %}</td>
+  <td class="mono">{{ e.score|num(3) }}</td>
+  <td>{{ zona(e.zona, e.status) }}</td>
+  <td>{{ e.clase_top or '—' }}</td>
+  <td>{{ e.n_detecciones if e.n_detecciones is not none else '—' }}</td>
+  <td>{% if e.imagen_ref %}<a href="{{ url_for('imagen', run_id=e.run_id, ref=e.imagen_ref) }}">imagen</a>{% else %}—{% endif %}</td>
+  <td>{% if e.n_alertas %}<a href="{{ url_for('evento', event_id=e.event_id) }}#alertas">{{ e.n_alertas }}</a>{% else %}—{% endif %}</td>
+  <td><a href="{{ url_for('ventana', ventana_id=e.ventana_id) }}" class="mono">{{ e.ventana_id.split('-')[-1] }}</a></td>
+</tr>
+{% endfor %}
+</table></div>
+<p class="paginas">{% for p in range(1, paginas + 1) %}{% if p == pagina %}<span><b>{{ p }}</b></span>{% else %}<a href="{{ url_for('eventos', pagina=p, **activos) }}">{{ p }}</a>{% endif %}{% endfor %}</p>
+{% else %}
+<p class="vacio">Ningún evento cumple los filtros.</p>
+{% endif %}
+{% endblock %}

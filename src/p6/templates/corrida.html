@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block titulo %}Corrida{% endblock %}
+{% block contenido %}
+<p><a href="{{ url_for('tablero', run=run.run_id) }}">← tablero</a></p>
+<h1>Corrida <span class="mono">{{ run.run_id }}</span></h1>
+<div class="dos">
+<div class="panel"><dl class="campos">
+  <dt>Escenario</dt><dd>{{ run.escenario_id }} — {{ run.escenario.descripcion }}</dd>
+  <dt>Esperado</dt><dd>{{ run.escenario.esperado }}</dd>
+  <dt>Inicio / fin</dt><dd class="mono">{{ run.inicio_utc }} → {{ run.fin_utc }}</dd>
+  <dt>Revisión Git</dt><dd class="mono">{{ run.git.commit }}{% if run.git.cambios_sin_commit_en_codigo %} (con cambios sin commit){% endif %}</dd>
+  <dt>Modelo</dt><dd>{{ run.modelo.nombre }} {{ run.modelo.version }} · <span class="mono">{{ run.modelo.sha256 }}</span></dd>
+  <dt>Config</dt><dd class="mono">{{ run.config_ref }}</dd>
+  <dt>Referencia</dt><dd class="mono">{{ run.referencia.run_id or 'sin referencia' }} · p_baja {{ run.referencia.p_baja|num(4) }}</dd>
+  <dt>Fuente</dt><dd class="mono">{% for k, v in (run.fuente or {}).items() %}{{ k }}={{ v }} {% endfor %}</dd>
+  <dt>Entorno</dt><dd class="mono">{% for k, v in run.entorno.items() %}{{ k }}: {{ v }}<br>{% endfor %}</dd>
+</dl>
+<p>Archivos primarios: {% for n in ('run.json','eventos.jsonl','ventanas.jsonl','alertas.jsonl','capturas.jsonl','metricas.json') %}<a href="{{ url_for('archivo', run_id=run.run_id, nombre=n) }}">{{ n }}</a> {% endfor %}</p>
+</div>
+<div class="panel">
+  <h2 style="margin-top:0">metricas.json</h2>
+  {% if met %}<pre>{{ json.dumps(met.metricas, indent=2, ensure_ascii=False) }}</pre>{% else %}<p class="vacio">Sin métricas calculadas.</p>{% endif %}
+</div>
+</div>
+<h2 id="config">Configuración congelada de la corrida</h2>
+{% for nombre, texto in archivos.items() %}
+<details class="panel" {{ 'open' if nombre == 'monitoreo.yaml' }}><summary><code>config/{{ nombre }}</code></summary><pre>{{ texto }}</pre></details>
+{% endfor %}
+{% endblock %}

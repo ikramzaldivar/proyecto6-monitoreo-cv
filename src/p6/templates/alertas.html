@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "macros.html" import sev, est %}
+{% block titulo %}Alertas{% endblock %}
+{% block contenido %}
+<h1>Alertas</h1>
+<form class="filtros" method="get">
+  <label>Corrida<select name="run"><option value="">todas</option>{% for c in corridas %}<option value="{{ c.run_id }}" {{ 'selected' if activos.run == c.run_id }}>{{ c.run_id }}</option>{% endfor %}</select></label>
+  <label>Regla<select name="regla"><option value="">todas</option>{% for r in reglas %}<option {{ 'selected' if activos.regla == r }}>{{ r }}</option>{% endfor %}</select></label>
+  <label>Severidad<select name="severidad"><option value="">todas</option>{% for s in ('advertencia','alta') %}<option {{ 'selected' if activos.severidad == s }}>{{ s }}</option>{% endfor %}</select></label>
+  <label>Estado<select name="estado"><option value="">todos</option>{% for s in ('abierta','resuelta') %}<option {{ 'selected' if activos.estado == s }}>{{ s }}</option>{% endfor %}</select></label>
+  <button type="submit">Filtrar</button> <a href="{{ url_for('alertas') }}">limpiar</a>
+</form>
+<p class="tenue">{{ filas|length }} alertas. Más recientes primero.</p>
+{% if filas %}
+<div class="tabla"><table>
+<tr><th>Alerta</th><th>Momento (UTC)</th><th>Regla</th><th>Severidad</th><th>Estado</th><th>Motivo</th><th>Acción sugerida</th><th>Eventos</th></tr>
+{% for a in filas %}
+<tr>
+  <td><a href="{{ url_for('alerta', alert_id=a.alert_id) }}" class="mono">{{ a.alert_id }}</a></td>
+  <td class="mono">{{ a.abierta }}{% if a.resuelta %}<br><span class="tenue">resuelta {{ a.resuelta[11:23] }}</span>{% endif %}</td>
+  <td>{{ a.rule_id }}</td><td>{{ sev(a.severidad) }}</td><td>{{ est(a.estado) }}</td>
+  <td>{{ a.motivo }}</td><td>{{ a.accion }}</td><td>{{ a.n_eventos }}</td>
+</tr>
+{% endfor %}
+</table></div>
+{% else %}<p class="vacio">No hay alertas con estos filtros. Que no haya alertas no significa operación sana si las ventanas fueron insuficientes: revisa el tablero.</p>{% endif %}
+{% endblock %}

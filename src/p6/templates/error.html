@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block titulo %}Error {{ e.code }}{% endblock %}
+{% block contenido %}
+<h1>{{ e.code }} · {{ e.name }}</h1>
+<p>{{ e.description }}</p>
+<p><a href="{{ url_for('tablero') }}">Volver al tablero</a></p>
+{% endblock %}

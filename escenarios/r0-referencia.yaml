@@ -1,0 +1,11 @@
+escenario_id: r0-referencia
+descripcion: >-
+  Corrida de referencia. Las seis secuencias originales del carrito (S1-S6, 78 frames,
+  iluminacion normal de la captura de P5) reproducidas a 2 fps. Sus puntuaciones justifican
+  los umbrales (docs/umbrales.md) y se congelan en config/referencia.json.
+esperado: >-
+  Inferencias reales en los 78 frames; frames sin detecciones separados. Sin referencia
+  previa la regla de cambio sostenido queda inactiva.
+segmentos:
+  - manifiesto: datos/carrito/capturas.csv
+    secuencias: [S1, S2, S3, S4, S5, S6]

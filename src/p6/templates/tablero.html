@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% from "macros.html" import zona, sev, est %}
+{% block titulo %}Tablero{% endblock %}
+{% block contenido %}
+<h1>Tablero</h1>
+<p class="tenue">Corridas persistidas en <code>evidencias/corridas/</code>. Elige una para ver sus gráficas. Las puntuaciones son salidas del modelo; la zona “aceptada” es una decisión de política, no un acierto.</p>
+{% if not runs %}
+<p class="vacio">No hay corridas. Ejecuta <code>python -m p6.monitor --escenario escenarios/c1-normal.yaml</code>.</p>
+{% endif %}
+<div class="tarjetas">
+{% for x in runs %}{% set r = x.r %}{% set res = x.met.resumen if x.met else None %}
+  <div class="tarjeta {{ 'sel' if r.run_id == sel }}">
+    <div><a href="{{ url_for('tablero', run=r.run_id) }}"><b>{{ r.escenario_id }}</b></a></div>
+    <div class="mono tenue">{{ r.run_id }}</div>
+    {% if res %}
+    <div class="kpi">
+      <div>frames<b>{{ res.frames }}</b></div>
+      <div>p_baja<b>{{ res.p_baja|pct }}</b></div>
+      <div>inferencia p95<b>{{ res.inferencia_p95_ms|num(1) }} ms</b></div>
+      <div>FPS<b>{{ res.fps_procesamiento|num(2) }}</b></div>
+      <div>alertas<b>{{ x.n_alertas }}{% if x.abiertas %} <span class="chip e-abierta">{{ x.abiertas }} abiertas</span>{% endif %}</b></div>
+    </div>
+    <div class="tenue" style="margin-top:6px;font-size:12px">
+      aceptada {{ res.zonas.aceptada }} · duda {{ res.zonas.duda }} · baja {{ res.zonas.baja }} · sin det. {{ res.zonas.sin_detecciones }} · error {{ res.zonas.error }}
+    </div>
+    {% endif %}
+    <div style="margin-top:6px;font-size:12px"><a href="{{ url_for('eventos', run=r.run_id) }}">eventos</a> · <a href="{{ url_for('alertas', run=r.run_id) }}">alertas</a> · <a href="{{ url_for('corrida', run_id=r.run_id) }}">configuración y métricas</a></div>
+  </div>
+{% endfor %}
+</div>
+
+{% if g %}
+<h2>Corrida {{ g.run.run_id }}</h2>
+<div class="panel">
+  <div class="leyenda">
+    <span><i style="background:var(--aceptada)"></i>aceptada (s ≥ {{ g.run.politica.umbral_superior }})</span>
+    <span><i style="background:var(--duda)"></i>duda</span>
+    <span><i style="background:var(--baja)"></i>baja (s &lt; {{ g.run.politica.umbral_inferior }})</span>
+    <span><i style="background:var(--sin);border-radius:0"></i>sin detecciones</span>
+    <span>✕ error</span>
+  </div>
+  {{ g.scores|safe }}
+  <p class="tenue" style="font-size:12px">Puntuación del frame = máxima entre sus candidatas (piso de salida {{ g.run.politica.piso_salida }}, NMS {{ g.run.politica.nms_iou }}). Clic en un punto abre su evento.</p>
+</div>
+<div class="dos">
+  <div class="panel">
+    {{ g.ventanas|safe }}
+    <p class="tenue" style="font-size:12px">Barras grises: ventana con evidencia insuficiente (menos de {{ g.minimo }} frames puntuados), no normalidad. Barras rojas: ventana cerrada con alertas activas.</p>
+  </div>
+  <div class="panel">
+    {{ g.activas|safe }}
+    <h2 style="margin-top:10px">Alertas de la corrida</h2>
+    {% if g.alertas %}
+    <table>
+      {% for a in g.alertas %}
+      <tr><td><a href="{{ url_for('alerta', alert_id=a.alert_id) }}" class="mono">{{ a.alert_id.split('-')[-1] }}</a></td><td>{{ a.rule_id }}</td><td>{{ sev(a.severidad) }}</td><td>{{ est(a.estado) }}</td></tr>
+      {% endfor %}
+    </table>
+    {% else %}<p class="vacio">La corrida no generó alertas.</p>{% endif %}
+  </div>
+</div>
+{% if g.met %}{% set m = g.met.metricas %}
+<div class="panel">
+  <h2 style="margin-top:0">Métricas base de la corrida</h2>
+  <table>
+    <tr><th>Grupo</th><th>Métrica base</th><th>Valor</th><th>n</th></tr>
+    <tr><td>G1</td><td>Tiempo de inferencia del modelo</td><td>p50 {{ m.G1_tiempo_inferencia_ms.p50|num(2) }} ms · p95 {{ m.G1_tiempo_inferencia_ms.p95|num(2) }} ms</td><td>{{ m.G1_tiempo_inferencia_ms.n }}</td></tr>
+    <tr><td>G2</td><td>FPS de procesamiento</td><td>{{ m.G2_fps_procesamiento.valor|num(3) }}</td><td>{{ m.G2_fps_procesamiento.n }}</td></tr>
+    <tr><td>G3</td><td>RAM (RSS) del proceso</td><td>máx {{ m.G3_rss_mb.max|num(1) }} MB · media {{ m.G3_rss_mb.media|num(1) }} MB</td><td>{{ m.G3_rss_mb.n }}</td></tr>
+    <tr><td>G4</td><td>Proporción de baja confianza (frames)</td><td>{{ m.G4_p_baja.valor|pct }}{% if m.G4_p_baja.valor is none %} ({{ m.G4_p_baja.motivo_null }}){% endif %}</td><td>{{ m.G4_p_baja.n }}</td></tr>
+    <tr><td>G5</td><td>Imágenes vinculadas</td><td>{{ m.G5_imagenes_vinculadas.valor|pct }}</td><td>{{ m.G5_imagenes_vinculadas.n }}</td></tr>
+    <tr><td>G6</td><td>Versión esperada vs reportada</td><td>{{ m.G6_version_esperada_vs_reportada.valor|pct }}</td><td>{{ m.G6_version_esperada_vs_reportada.n }}</td></tr>
+    <tr><td>G7</td><td>Alertas activas por ventana</td><td>máx {{ m.G7_alertas_activas.max_por_ventana }} · al cierre {{ m.G7_alertas_activas.al_cierre }} · abiertas {{ m.G7_alertas_activas.abiertas_total }}</td><td>{{ m.G7_alertas_activas.n_ventanas }} ventanas</td></tr>
+  </table>
+  <p class="tenue" style="font-size:12px">Todas se recalculan desde los JSONL con <code>python scripts/recalcular_metricas.py</code>. Detalle en <a href="{{ url_for('corrida', run_id=g.run.run_id) }}">configuración y métricas</a>.</p>
+</div>
+{% endif %}
+{% endif %}
+<form method="post" action="{{ url_for('recargar_post') }}"><button type="submit">Recargar corridas desde disco</button></form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "macros.html" import zona, sev, est %}
+{% block titulo %}Ventana{% endblock %}
+{% block contenido %}
+<p><a href="{{ url_for('tablero', run=v.run_id) }}">← corrida {{ v.run_id }}</a></p>
+<h1>Ventana v{{ v.indice }} <span class="mono tenue">{{ v.ventana_id }}</span></h1>
+<div class="panel"><dl class="campos">
+  <dt>Estado</dt><dd><b>{{ v.estado }}</b>{% if v.estado == 'insuficiente' %} — menos de {{ v.minimo_puntuados }} frames puntuados: evidencia insuficiente, no normalidad{% endif %}</dd>
+  <dt>Desde – hasta</dt><dd class="mono">{{ v.desde }} – {{ v.hasta }}</dd>
+  <dt>Conteos</dt><dd class="mono">{% for k, n in v.conteos.items() %}{{ k }}={{ n }} {% endfor %}</dd>
+  <dt>p_baja</dt><dd>{{ v.p_baja|num(3) }} (referencia {{ v.p_baja_referencia|num(3) }}, límite sostenido {{ v.limite_sostenido|num(3) }})</dd>
+  <dt>Racha sostenida</dt><dd class="mono">{{ v.racha_sostenida|join(', ') or '—' }}</dd>
+  <dt>Reglas</dt><dd class="mono">{% for k, r in v.reglas.items() %}{{ k }}: {{ r }}<br>{% endfor %}</dd>
+  <dt>Alertas activas al cerrar</dt><dd>{{ v.n_alertas_activas }}</dd>
+  <dt>Configuración</dt><dd class="mono">{{ v.config_ref }}</dd>
+</dl></div>
+<h2>Alertas vinculadas</h2>
+{% if alertas %}<table>{% for a in alertas %}<tr><td><a href="{{ url_for('alerta', alert_id=a.alert_id) }}" class="mono">{{ a.alert_id }}</a></td><td>{{ a.rule_id }}</td><td>{{ sev(a.severidad) }}</td><td>{{ est(a.estado) }}</td></tr>{% endfor %}</table>
+{% else %}<p class="vacio">Ninguna alerta referencia esta ventana.</p>{% endif %}
+<h2>Eventos ({{ eventos|length }})</h2>
+<div class="tabla"><table><tr><th>#</th><th>Status</th><th>Score</th><th>Zona</th><th>Clase</th></tr>
+{% for e in eventos %}<tr><td><a href="{{ url_for('evento', event_id=e.event_id) }}">#{{ e.seq }}</a></td><td>{{ e.status }}</td><td class="mono">{{ e.score|num(3) }}</td><td>{{ zona(e.zona, e.status) }}</td><td>{{ e.clase_top or '—' }}</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

@@ -1,0 +1,20 @@
+[project]
+name = "p6-monitoreo-cv"
+version = "1.0.0"
+description = "Proyecto 6: centro de monitoreo de computer vision (entrega individual)"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# marcado SVG y SQL en una sola linea para que se lean como el HTML que generan
+"src/p6/portal.py" = ["E501"]

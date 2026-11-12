@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% from "macros.html" import zona %}
+{% block titulo %}Revisión de capturas{% endblock %}
+{% block contenido %}
+<h1>Revisión manual de capturas</h1>
+<p class="tenue">Las capturas se conservan sin expiración en <code>evidencias/corridas/&lt;run&gt;/imagenes/</code>. Cada revisión se agrega a <code>evidencias/revisiones.jsonl</code> (append-only); la más reciente es la vigente. El veredicto es una nota de investigación humana: no cambia puntuaciones ni alertas.</p>
+<form class="filtros" method="get">
+  <label>Corrida<select name="run"><option value="">todas</option>{% for c in corridas %}<option value="{{ c.run_id }}" {{ 'selected' if activos.run == c.run_id }}>{{ c.run_id }}</option>{% endfor %}</select></label>
+  <label>Motivo<select name="motivo"><option value="">todos</option>{% for m in motivos %}<option {{ 'selected' if activos.motivo == m }}>{{ m }}</option>{% endfor %}</select></label>
+  <label>Zona<select name="zona"><option value="">todas</option>{% for z in ('aceptada','duda','baja') %}<option {{ 'selected' if activos.zona == z }}>{{ z }}</option>{% endfor %}</select></label>
+  <label>Revisión<select name="revision"><option value="">todas</option><option value="pendiente" {{ 'selected' if activos.revision == 'pendiente' }}>pendiente</option>{% for v in veredictos %}<option {{ 'selected' if activos.revision == v }}>{{ v }}</option>{% endfor %}</select></label>
+  <button type="submit">Filtrar</button> <a href="{{ url_for('capturas') }}">limpiar</a>
+</form>
+<p class="tenue">{{ filas|length }} capturas (máximo 200 por consulta).</p>
+{% if filas %}
+<div class="galeria">
+{% for c in filas %}
+  <div class="tarjeta">
+    {% if not c.existe %}<p class="vacio">Archivo ausente: {{ c.image_ref }}</p>
+    {% elif c.status == 'error' %}<p class="vacio">Bytes conservados de una entrada ilegible: <a href="{{ url_for('imagen', run_id=c.run_id, ref=c.image_ref) }}">{{ c.image_ref }}</a></p>
+    {% else %}<a href="{{ url_for('evento', event_id=c.event_id) }}"><img loading="lazy" src="{{ url_for('imagen', run_id=c.run_id, ref=c.image_ref) }}" alt="captura {{ c.capture_id }}"></a>{% endif %}
+    <div><a href="{{ url_for('evento', event_id=c.event_id) }}" class="mono">{{ c.run_id.rsplit('-',1)[0] }} #{{ c.seq }}</a> {{ zona(c.zona, c.status) }}</div>
+    <div class="tenue" style="font-size:12px">{{ c.motivo }} · {{ c.clase_top or '—' }} · s={{ c.score|num(3) }}</div>
+    {% if c.veredicto %}<div style="font-size:12px">Revisada: <b>{{ c.veredicto }}</b> {{ c.nota }}</div>{% else %}<div class="tenue" style="font-size:12px">Sin revisar</div>{% endif %}
+    <form method="post" action="{{ url_for('revisar', capture_id=c.capture_id) }}" style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap">
+      <select name="veredicto" required>{% for v in veredictos %}<option {{ 'selected' if c.veredicto == v }}>{{ v }}</option>{% endfor %}</select>
+      <input name="nota" placeholder="nota" size="12" maxlength="500">
+      <input type="hidden" name="volver" value="{{ request.full_path }}">
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+{% endfor %}
+</div>
+{% else %}<p class="vacio">Ninguna captura cumple los filtros.</p>{% endif %}
+{% endblock %}

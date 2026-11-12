@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% from "macros.html" import zona, sev, est %}
+{% block titulo %}Evento {{ e.seq }}{% endblock %}
+{% block contenido %}
+<p><a href="{{ url_for('eventos', run=e.run_id) }}">← eventos de la corrida</a>
+{% for v in vecinos %} · <a href="{{ url_for('evento', event_id=v.event_id) }}">{{ 'anterior' if v.seq < e.seq else 'siguiente' }} (#{{ v.seq }})</a>{% endfor %}</p>
+<h1>Evento <span class="mono">{{ e.event_id }}</span> {{ zona(e.zona_frame, e.status) }}</h1>
+<div class="dos">
+  <div class="panel">
+    {% if e.imagen_ref and e.status == 'ok' %}
+    <div class="imagen-det">
+      <img src="{{ url_for('imagen', run_id=e.run_id, ref=e.imagen_ref) }}" alt="Captura del frame {{ e.frame_id }}">
+      <svg viewBox="0 0 {{ e.imagen.ancho }} {{ e.imagen.alto }}" preserveAspectRatio="none">
+        {% for d in e.detections %}{% set b = d.bbox_xyxy %}
+        <rect x="{{ b[0] }}" y="{{ b[1] }}" width="{{ b[2]-b[0] }}" height="{{ b[3]-b[1] }}" fill="none" stroke="{{ ZONA_COLOR[d.zona] }}" stroke-width="2"/>
+        <text x="{{ b[0] + 2 }}" y="{{ b[1] + 12 }}" fill="{{ ZONA_COLOR[d.zona] }}" font-size="12" font-weight="700">{{ d.class_name }} {{ '%.2f'|format(d.score) }}</text>
+        {% endfor %}
+      </svg>
+    </div>
+    <p class="tenue" style="font-size:12px">Captura conservada (motivo: <b>{{ e.motivo_captura }}</b>). Cajas dibujadas desde <code>detections</code> del evento.</p>
+    {% elif e.imagen_ref %}
+    <p class="vacio">Bytes de la entrada conservados en <a href="{{ url_for('imagen', run_id=e.run_id, ref=e.imagen_ref) }}">{{ e.imagen_ref }}</a>; no se pueden decodificar como imagen (por eso el error).</p>
+    {% elif capturas %}
+    <p><a href="{{ url_for('imagen', run_id=e.run_id, ref=capturas[0].image_ref) }}"><img src="{{ url_for('imagen', run_id=e.run_id, ref=capturas[0].image_ref) }}" alt="captura" style="max-width:100%"></a></p>
+    {% else %}
+    <p class="vacio">Este frame no se capturó según la política (baja, duda, errores, alertas y 1 de cada 4 normales). La entrada original es <code>{{ e.entrada.ruta }}</code>.</p>
+    {% endif %}
+    {% for c in capturas %}
+      <p class="mono tenue" style="font-size:11px">{{ c.capture_id }} · {{ c.motivo }} · sha256 {{ c.sha256[:16] }}… · {{ 'archivo presente' if c.existe else 'ARCHIVO AUSENTE' }}</p>
+    {% endfor %}
+    {% for r in revs %}<p style="font-size:12px">Revisión {{ r.timestamp }}: <b>{{ r.veredicto }}</b> {{ r.nota }}</p>{% endfor %}
+  </div>
+  <div class="panel">
+    <dl class="campos">
+      <dt>Corrida</dt><dd><a href="{{ url_for('corrida', run_id=e.run_id) }}">{{ e.run_id }}</a></dd>
+      <dt>Frame</dt><dd>#{{ e.seq }} · <span class="mono">{{ e.frame_id }}</span> · {{ e.sequence_id }}</dd>
+      <dt>Fuente</dt><dd>{{ e.source_id }}</dd>
+      <dt>Entrada</dt><dd class="mono">{{ e.entrada.ruta }}<br>sha256 {{ e.entrada.sha256_manifiesto[:24] }}…</dd>
+      <dt>Captura (UTC)</dt><dd class="mono">{{ e.t_captura }}</dd>
+      <dt>Registro (UTC)</dt><dd class="mono">{{ e.timestamp }}</dd>
+      <dt>Tarea</dt><dd>{{ e.task }}</dd>
+      <dt>Modelo</dt><dd>{{ e.model.nombre }} {{ e.model.version }} · <span class="mono">{{ e.model.sha256[:16] }}…</span></dd>
+      <dt>Configuración</dt><dd><a href="{{ url_for('corrida', run_id=e.run_id) }}#config" class="mono">{{ e.config_ref }}</a></dd>
+      <dt>Umbrales</dt><dd>inferior {{ e.umbrales.inferior }} · superior {{ e.umbrales.superior }} · piso {{ e.umbrales.piso_salida }}</dd>
+      <dt>Status</dt><dd>{{ e.status }}{% if e.resultado %} · {{ e.resultado }}{% endif %}</dd>
+      {% if e.error %}<dt>Error</dt><dd class="mono">{{ e.error }}</dd>{% endif %}
+      <dt>Score del frame</dt><dd>{{ e.score_frame|num(4) }}</dd>
+      <dt>Ventana</dt><dd><a href="{{ url_for('ventana', ventana_id=e.ventana_id) }}" class="mono">{{ e.ventana_id }}</a></dd>
+      <dt>Tiempos (ms)</dt><dd class="mono">{% for k, v in e.tiempos_ms.items() %}{{ k }} {{ v|num(2) }}{{ ' · ' if not loop.last }}{% endfor %}</dd>
+      <dt>Recursos</dt><dd class="mono">RSS {{ e.recursos.rss_mb }} MB · CPU {{ e.recursos.cpu_pct_proceso }} % · cola {{ e.recursos.cola_pendientes }}</dd>
+    </dl>
+  </div>
+</div>
+<h2>Detecciones candidatas ({{ e.detections|length }})</h2>
+{% if e.detections %}
+<div class="tabla"><table><tr><th>#</th><th>Clase</th><th>class_id</th><th>Score</th><th>Zona</th><th>Caja xyxy (px)</th></tr>
+{% for d in e.detections %}<tr><td>{{ loop.index }}</td><td>{{ d.class_name }}</td><td>{{ d.class_id }}</td><td class="mono">{{ d.score|num(4) }}</td><td>{{ zona(d.zona) }}</td><td class="mono">{{ d.bbox_xyxy|join(', ') }}</td></tr>{% endfor %}
+</table></div>
+{% elif e.status == 'error' %}<p class="vacio">Inferencia fallida: no hay puntuación ni zona (estado aparte, no baja confianza).</p>
+{% else %}<p class="vacio">Sin detecciones sobre el piso de salida: estado aparte, sin confianza artificial de cero.</p>{% endif %}
+<h2 id="alertas">Alertas que referencian este evento</h2>
+{% if alertas %}
+<table>{% for a in alertas %}<tr><td><a href="{{ url_for('alerta', alert_id=a.alert_id) }}" class="mono">{{ a.alert_id }}</a></td><td>{{ a.rule_id }}</td><td>{{ sev(a.severidad) }}</td><td>{{ est(a.estado) }}</td><td>{{ a.motivo }}</td></tr>{% endfor %}</table>
+{% else %}<p class="vacio">Ninguna alerta referencia este evento.</p>{% endif %}
+<h2>Registro primario</h2>
+<p class="tenue">Línea de <a href="{{ url_for('archivo', run_id=e.run_id, nombre='eventos.jsonl') }}">eventos.jsonl</a> con <code>event_id = {{ e.event_id }}</code>:</p>
+<pre>{{ json.dumps(e, indent=2, ensure_ascii=False) }}</pre>
+{% endblock %}
