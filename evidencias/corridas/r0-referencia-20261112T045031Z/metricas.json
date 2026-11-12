@@ -1,0 +1,314 @@
+{
+  "run_id": "r0-referencia-20261112T045031Z",
+  "calculado_desde": [
+    "run.json",
+    "eventos.jsonl",
+    "ventanas.jsonl",
+    "alertas.jsonl",
+    "capturas.jsonl",
+    "config/"
+  ],
+  "metodo_percentil": "nearest-rank",
+  "resumen": {
+    "run_id": "r0-referencia-20261112T045031Z",
+    "frames": 78,
+    "zonas": {
+      "aceptada": 23,
+      "duda": 19,
+      "baja": 20,
+      "sin_detecciones": 16,
+      "error": 0
+    },
+    "ventanas": 13,
+    "ventanas_suficientes": 10,
+    "ventanas_insuficientes": 3,
+    "alertas": [
+      "r0-referencia-20261112T045031Z-a01 baja-confianza-v1",
+      "r0-referencia-20261112T045031Z-a02 baja-confianza-v1"
+    ],
+    "p_baja": 0.3225806451612903,
+    "inferencia_p95_ms": 22.461,
+    "fps_procesamiento": 2.023188858299613,
+    "imagenes_vinculadas": 1.0
+  },
+  "metricas": {
+    "G1_tiempo_inferencia_ms": {
+      "p50": 11.808,
+      "p95": 22.461,
+      "n": 78
+    },
+    "G1x_tasa_errores": {
+      "valor": 0.0,
+      "n": 78
+    },
+    "G2_fps_procesamiento": {
+      "valor": 2.023188858299613,
+      "n": 78,
+      "duracion_s": 38.55299997329712
+    },
+    "G2x_latencia_e2e_ms": {
+      "p50": 23.6,
+      "p95": 46.158,
+      "max": 65.639,
+      "n": 78
+    },
+    "G2x_descartados": {
+      "saturacion": 0,
+      "muestreo": 0,
+      "emitidos": 78,
+      "procesados": 78
+    },
+    "G3_rss_mb": {
+      "max": 82.35,
+      "media": 79.35602564102564,
+      "n": 78
+    },
+    "G3x_cpu_pct_proceso": {
+      "media": 34.79480519480519,
+      "max": 51.5,
+      "n": 77
+    },
+    "G4_p_baja": {
+      "valor": 0.3225806451612903,
+      "baja": 20,
+      "n": 62
+    },
+    "G4_zonas": {
+      "aceptada": 23,
+      "duda": 19,
+      "baja": 20,
+      "sin_detecciones": 16,
+      "error": 0
+    },
+    "G4x_sin_detecciones": {
+      "valor": 0.20512820512820512,
+      "sin_detecciones": 16,
+      "n": 78
+    },
+    "G4x_detecciones_por_clase": {
+      "person": {
+        "aceptada": 19,
+        "duda": 5,
+        "baja": 7,
+        "total": 31
+      },
+      "dog": {
+        "baja": 9,
+        "duda": 7,
+        "aceptada": 4,
+        "total": 20
+      },
+      "cat": {
+        "baja": 9,
+        "aceptada": 8,
+        "duda": 1,
+        "total": 18
+      },
+      "teddy bear": {
+        "baja": 6,
+        "aceptada": 4,
+        "duda": 3,
+        "total": 13
+      },
+      "refrigerator": {
+        "baja": 9,
+        "duda": 4,
+        "total": 13
+      },
+      "toilet": {
+        "duda": 1,
+        "baja": 10,
+        "total": 11
+      },
+      "oven": {
+        "baja": 7,
+        "duda": 2,
+        "total": 9
+      },
+      "tv": {
+        "baja": 6,
+        "duda": 1,
+        "total": 7
+      },
+      "kite": {
+        "baja": 5,
+        "duda": 1,
+        "total": 6
+      },
+      "traffic light": {
+        "baja": 5,
+        "duda": 1,
+        "total": 6
+      },
+      "sink": {
+        "baja": 4,
+        "duda": 1,
+        "total": 5
+      },
+      "fire hydrant": {
+        "aceptada": 1,
+        "duda": 1,
+        "baja": 3,
+        "total": 5
+      },
+      "umbrella": {
+        "baja": 4,
+        "total": 4
+      },
+      "microwave": {
+        "baja": 2,
+        "total": 2
+      },
+      "bird": {
+        "baja": 2,
+        "total": 2
+      },
+      "suitcase": {
+        "baja": 2,
+        "total": 2
+      },
+      "chair": {
+        "baja": 2,
+        "total": 2
+      },
+      "bottle": {
+        "baja": 2,
+        "total": 2
+      },
+      "horse": {
+        "baja": 2,
+        "total": 2
+      },
+      "bear": {
+        "baja": 1,
+        "total": 1
+      },
+      "cell phone": {
+        "baja": 1,
+        "total": 1
+      },
+      "vase": {
+        "duda": 1,
+        "total": 1
+      },
+      "bench": {
+        "baja": 1,
+        "total": 1
+      },
+      "car": {
+        "baja": 1,
+        "total": 1
+      },
+      "tie": {
+        "baja": 1,
+        "total": 1
+      }
+    },
+    "G4x_psi_referencia": {
+      "valor": 0.0,
+      "bins": [
+        0.1,
+        0.25,
+        0.4,
+        0.55,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "distribucion": [
+        11,
+        9,
+        14,
+        5,
+        9,
+        14
+      ],
+      "distribucion_referencia": [
+        11,
+        9,
+        14,
+        5,
+        9,
+        14
+      ],
+      "n": 62,
+      "n_referencia": 62
+    },
+    "G5_imagenes_vinculadas": {
+      "valor": 1.0,
+      "vinculadas": 49,
+      "n": 49
+    },
+    "G5x_cobertura_trazabilidad": {
+      "valor": 1.0,
+      "completos": 78,
+      "n": 78
+    },
+    "G6_version_esperada_vs_reportada": {
+      "valor": 1.0,
+      "coinciden": 78,
+      "n": 78,
+      "esperada": "c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d",
+      "distribucion": {
+        "yolox_nano@c789161ed43c": 78
+      }
+    },
+    "G6x_reportes_por_fuente": {
+      "carrito-esp32cam": {
+        "reportes": 78,
+        "s_desde_ultimo_al_cierre": 0.0010001659393310547
+      }
+    },
+    "G7_alertas_activas": {
+      "max_por_ventana": 1,
+      "al_cierre": 0,
+      "serie": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "serie_al_cierre_de_ventana": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "abiertas_total": 2,
+      "resueltas": 2,
+      "n_ventanas": 13
+    },
+    "G7x_tiempo_deteccion_s": {
+      "r0-referencia-20261112T045031Z-a01": {
+        "rule_id": "baja-confianza-v1",
+        "valor": 2.549999952316284,
+        "inicio_condicion": "2026-11-12T04:50:46.512Z",
+        "apertura": "2026-11-12T04:50:49.062Z"
+      },
+      "r0-referencia-20261112T045031Z-a02": {
+        "rule_id": "baja-confianza-v1",
+        "valor": 2.5399999618530273,
+        "inicio_condicion": "2026-11-12T04:50:52.513Z",
+        "apertura": "2026-11-12T04:50:55.053Z"
+      }
+    }
+  }
+}

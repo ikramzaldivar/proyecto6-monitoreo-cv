@@ -1,8 +1,8 @@
 {
-  "run_id": "r0-referencia-20261112T041654Z",
-  "creada_utc": "2026-11-12T04:20:57.652Z",
+  "run_id": "r0-referencia-20261112T045031Z",
+  "creada_utc": "2026-11-12T04:51:10.542Z",
   "git": {
-    "commit": "ad5229dcdfd2c21a9e1994edc3cd588c97e1219f",
+    "commit": "7c4a1b89be5a46cb5e9d9c40db880021b2b1112f",
     "cambios_sin_commit_en_codigo": false
   },
   "config_ref": "monitoreo-v1@2ea33802ba0c",
@@ -56,43 +56,43 @@
   ],
   "p_baja_por_ventana": [
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v003",
+      "ventana_id": "r0-referencia-20261112T045031Z-v003",
       "p_baja": 0.3333333333333333
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v004",
+      "ventana_id": "r0-referencia-20261112T045031Z-v004",
       "p_baja": 0.2
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v005",
+      "ventana_id": "r0-referencia-20261112T045031Z-v005",
       "p_baja": 0.0
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v006",
+      "ventana_id": "r0-referencia-20261112T045031Z-v006",
       "p_baja": 0.6666666666666666
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v007",
+      "ventana_id": "r0-referencia-20261112T045031Z-v007",
       "p_baja": 0.3333333333333333
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v008",
+      "ventana_id": "r0-referencia-20261112T045031Z-v008",
       "p_baja": 0.6666666666666666
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v009",
+      "ventana_id": "r0-referencia-20261112T045031Z-v009",
       "p_baja": 0.3333333333333333
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v010",
+      "ventana_id": "r0-referencia-20261112T045031Z-v010",
       "p_baja": 0.0
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v011",
+      "ventana_id": "r0-referencia-20261112T045031Z-v011",
       "p_baja": 0.0
     },
     {
-      "ventana_id": "r0-referencia-20261112T041654Z-v012",
+      "ventana_id": "r0-referencia-20261112T045031Z-v012",
       "p_baja": 0.3333333333333333
     }
   ]

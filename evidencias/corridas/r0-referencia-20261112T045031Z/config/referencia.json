@@ -1,0 +1,99 @@
+{
+  "run_id": "r0-referencia-20261112T041654Z",
+  "creada_utc": "2026-11-12T04:20:57.652Z",
+  "git": {
+    "commit": "ad5229dcdfd2c21a9e1994edc3cd588c97e1219f",
+    "cambios_sin_commit_en_codigo": false
+  },
+  "config_ref": "monitoreo-v1@2ea33802ba0c",
+  "modelo": {
+    "nombre": "yolox_nano",
+    "version": "0.1.1rc0",
+    "archivo": "yolox_nano.onnx",
+    "sha256": "c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d"
+  },
+  "politica": {
+    "umbral_inferior": 0.4,
+    "umbral_superior": 0.7,
+    "piso_salida": 0.1,
+    "nms_iou": 0.45,
+    "tamano_entrada": 416
+  },
+  "unidad": "frame puntuado (status=ok con al menos una candidata)",
+  "n_frames": 78,
+  "n_puntuados": 62,
+  "sin_detecciones": 16,
+  "errores": 0,
+  "zonas": {
+    "aceptada": 23,
+    "duda": 19,
+    "baja": 20
+  },
+  "p_baja": 0.3225806451612903,
+  "score_frame_percentiles": {
+    "p10": 0.210255,
+    "p25": 0.310238,
+    "p50": 0.503368,
+    "p75": 0.821004,
+    "p90": 0.874169
+  },
+  "bins": [
+    0.1,
+    0.25,
+    0.4,
+    0.55,
+    0.7,
+    0.85,
+    1.0
+  ],
+  "distribucion": [
+    11,
+    9,
+    14,
+    5,
+    9,
+    14
+  ],
+  "p_baja_por_ventana": [
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v003",
+      "p_baja": 0.3333333333333333
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v004",
+      "p_baja": 0.2
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v005",
+      "p_baja": 0.0
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v006",
+      "p_baja": 0.6666666666666666
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v007",
+      "p_baja": 0.3333333333333333
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v008",
+      "p_baja": 0.6666666666666666
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v009",
+      "p_baja": 0.3333333333333333
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v010",
+      "p_baja": 0.0
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v011",
+      "p_baja": 0.0
+    },
+    {
+      "ventana_id": "r0-referencia-20261112T041654Z-v012",
+      "p_baja": 0.3333333333333333
+    }
+  ]
+}
