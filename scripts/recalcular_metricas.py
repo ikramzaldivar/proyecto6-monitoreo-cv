@@ -173,11 +173,16 @@ def verificar(d: Path) -> int:
         sum(e["model"]["sha256"] == desc["sha256"] for e in eventos) / len(eventos),
         met["G6_version_esperada_vs_reportada"]["valor"],
     )
-    v.igual(
-        "G7 alertas activas por ventana",
-        [w["n_alertas_activas"] for w in ventanas],
-        met["G7_alertas_activas"]["serie"],
-    )
+    # G7: alertas abiertas en algun instante de (cierre anterior, cierre de la ventana]
+    run = json.loads((d / "run.json").read_text(encoding="utf-8"))
+    abre = {a["alert_id"]: segundos(a["timestamp"]) for a in aperturas}
+    cierra = {a["alert_id"]: segundos(a["timestamp"]) for a in alertas if a["registro"] == "resolucion"}
+    serie, desde = [], segundos(run["inicio_utc"])
+    for w in ventanas:
+        hasta = segundos(w["evaluada_utc"])
+        serie.append(len([k for k, t0 in abre.items() if t0 <= hasta and cierra.get(k, math.inf) > desde]))
+        desde = hasta
+    v.igual("G7 alertas activas por ventana", serie, met["G7_alertas_activas"]["serie"])
     if ref and punt:
         cortes = ref["bins"]
         dist = [0] * (len(cortes) - 1)

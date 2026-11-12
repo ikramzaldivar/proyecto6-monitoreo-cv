@@ -257,15 +257,31 @@ def calcular(dir_run: Path) -> dict[str, Any]:
         for k, v in por_fuente.items()
     }
 
-    # G7 base: alertas activas por ventana (abiertas al cerrar cada ventana).
-    serie = [v["n_alertas_activas"] for v in ventanas]
+    # G7 base: alertas activas por ventana = alertas abiertas en algun instante del intervalo
+    # de la ventana. Intervalo de la ventana k: (cierre de k-1, cierre de k], con el inicio de
+    # la corrida como limite de la primera. Activa si apertura <= fin y (sin resolucion o
+    # resolucion > inicio). Cuenta tambien las alertas por tiempo que abren y se resuelven
+    # entre dos cierres (fuente detenida).
     aperturas = [a for a in alertas if a["registro"] == "apertura"]
-    resoluciones = {a["alert_id"] for a in alertas if a["registro"] == "resolucion"}
+    resueltas_en = {a["alert_id"]: ts(a["timestamp"]) for a in alertas if a["registro"] == "resolucion"}
+    resoluciones = set(resueltas_en)
+    serie = []
+    inicio = ts(run["inicio_utc"])
+    for v in ventanas:
+        fin = ts(v["evaluada_utc"])
+        serie.append(
+            sum(
+                ts(a["timestamp"]) <= fin and resueltas_en.get(a["alert_id"], math.inf) > inicio
+                for a in aperturas
+            )
+        )
+        inicio = fin
     m["G7_alertas_activas"] = (
         {
             "max_por_ventana": max(serie),
             "al_cierre": len([a for a in aperturas if a["alert_id"] not in resoluciones]),
             "serie": serie,
+            "serie_al_cierre_de_ventana": [v["n_alertas_activas"] for v in ventanas],
             "abiertas_total": len(aperturas),
             "resueltas": len(resoluciones),
             "n_ventanas": len(serie),

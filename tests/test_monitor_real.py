@@ -49,6 +49,7 @@ def test_corrida_corta_con_modelo_real(tmp_path):
     met = json.loads((d / "metricas.json").read_text(encoding="utf-8"))["metricas"]
     assert met["G5_imagenes_vinculadas"]["valor"] == 1.0
     assert met["G1x_tasa_errores"]["valor"] == 3 / 5
+    assert met["G7_alertas_activas"]["serie"] == [1]  # una ventana parcial con la alerta de errores
 
     app = crear_app(tmp_path / "corridas", tmp_path / "p.sqlite", tmp_path / "rev.jsonl")
     c = app.test_client()

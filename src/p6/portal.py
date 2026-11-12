@@ -120,16 +120,17 @@ def crear_app(corridas: Path, db: Path, revisiones: Path) -> Flask:
             datos = yaml.safe_load(cfg.read_text(encoding="utf-8"))
             tol = datos["reglas"]["cambio_sostenido"]["tolerancia"]
             minimo = datos["ventanas"]["minimo_puntuados"]
+        met = json.loads(q("SELECT metricas_json FROM corridas WHERE run_id=?", (run_id,))[0][0] or "null")
+        g7 = (met or {}).get("metricas", {}).get("G7_alertas_activas", {})
+        serie_g7 = g7.get("serie") or [v["n_alertas_activas"] for v in ve]
         return {
             "run": run,
             "scores": svg_scores(ev, pol["umbral_inferior"], pol["umbral_superior"], pol["piso_salida"]),
             "ventanas": svg_ventanas(ve, ref, tol),
-            "activas": svg_activas(ve),
+            "activas": svg_activas(serie_g7),
             "minimo": minimo,
             "alertas": al,
-            "met": json.loads(
-                q("SELECT metricas_json FROM corridas WHERE run_id=?", (run_id,))[0][0] or "null"
-            ),
+            "met": met,
         }
 
     # ------------------------------------------------------------------ eventos
@@ -469,25 +470,26 @@ def svg_ventanas(ventanas: list[Any], ref: float | None, tol: float | None) -> s
     return f'<svg viewBox="0 0 {ANCHO} {ALTO}" class="grafica" role="img" aria-label="p_baja por ventana">{"".join(partes)}</svg>'
 
 
-def svg_activas(ventanas: list[Any]) -> str:
-    n = len(ventanas)
+def svg_activas(serie: list[int]) -> str:
+    """Serie G7: alertas activas en algun instante de cada ventana (de metricas.json)."""
+    n = len(serie)
     if n == 0:
         return '<p class="vacio">Sin ventanas evaluadas.</p>'
-    maximo = max(1, max(v["n_alertas_activas"] for v in ventanas))
+    maximo = max(1, max(serie))
     alto = 120
     puntos = []
-    for i, v in enumerate(ventanas):
+    for i, valor in enumerate(serie):
         x = _x(i, n)
-        y = alto - 24 - (alto - 48) * v["n_alertas_activas"] / maximo
+        y = alto - 24 - (alto - 48) * valor / maximo
         puntos.append(f"{x:.1f},{y:.1f}")
     partes = [
         f'<polyline points="{" ".join(puntos)}" class="linea"/>',
         f'<line x1="{M}" y1="{alto - 24}" x2="{ANCHO - M}" y2="{alto - 24}" class="eje"/>',
-        f'<text x="8" y="14" class="tick">alertas activas al cerrar cada ventana (max {maximo})</text>',
+        f'<text x="8" y="14" class="tick">alertas activas durante cada ventana (max {maximo})</text>',
     ]
-    for i, v in enumerate(ventanas):
+    for i, valor in enumerate(serie):
         partes.append(
-            f'<text x="{_x(i, n):.1f}" y="{alto - 8}" class="tick" text-anchor="middle">{v["n_alertas_activas"]}</text>'
+            f'<text x="{_x(i, n):.1f}" y="{alto - 8}" class="tick" text-anchor="middle">{valor}</text>'
         )
     return f'<svg viewBox="0 0 {ANCHO} {alto}" class="grafica" role="img" aria-label="Alertas activas">{"".join(partes)}</svg>'
 

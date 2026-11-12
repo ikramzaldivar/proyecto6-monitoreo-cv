@@ -45,7 +45,7 @@
 <div class="dos">
   <div class="panel">
     {{ g.ventanas|safe }}
-    <p class="tenue" style="font-size:12px">Barras grises: ventana con evidencia insuficiente (menos de {{ g.minimo }} frames puntuados), no normalidad. Barras rojas: ventana cerrada con alertas activas.</p>
+    <p class="tenue" style="font-size:12px">Barras grises: ventana con evidencia insuficiente (menos de {{ g.minimo }} frames puntuados), no normalidad. Barras rojas: ventana cerrada con alertas activas. La serie de la derecha (G7) cuenta las alertas activas en cualquier instante de cada ventana.</p>
   </div>
   <div class="panel">
     {{ g.activas|safe }}
@@ -70,7 +70,7 @@
     <tr><td>G4</td><td>Proporción de baja confianza (frames)</td><td>{{ m.G4_p_baja.valor|pct }}{% if m.G4_p_baja.valor is none %} ({{ m.G4_p_baja.motivo_null }}){% endif %}</td><td>{{ m.G4_p_baja.n }}</td></tr>
     <tr><td>G5</td><td>Imágenes vinculadas</td><td>{{ m.G5_imagenes_vinculadas.valor|pct }}</td><td>{{ m.G5_imagenes_vinculadas.n }}</td></tr>
     <tr><td>G6</td><td>Versión esperada vs reportada</td><td>{{ m.G6_version_esperada_vs_reportada.valor|pct }}</td><td>{{ m.G6_version_esperada_vs_reportada.n }}</td></tr>
-    <tr><td>G7</td><td>Alertas activas por ventana</td><td>máx {{ m.G7_alertas_activas.max_por_ventana }} · al cierre {{ m.G7_alertas_activas.al_cierre }} · abiertas {{ m.G7_alertas_activas.abiertas_total }}</td><td>{{ m.G7_alertas_activas.n_ventanas }} ventanas</td></tr>
+    <tr><td>G7</td><td>Alertas activas durante cada ventana</td><td>máx {{ m.G7_alertas_activas.max_por_ventana }} · al cierre {{ m.G7_alertas_activas.al_cierre }} · abiertas {{ m.G7_alertas_activas.abiertas_total }}</td><td>{{ m.G7_alertas_activas.n_ventanas }} ventanas</td></tr>
   </table>
   <p class="tenue" style="font-size:12px">Todas se recalculan desde los JSONL con <code>python scripts/recalcular_metricas.py</code>. Detalle en <a href="{{ url_for('corrida', run_id=g.run.run_id) }}">configuración y métricas</a>.</p>
 </div>
