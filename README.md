@@ -70,6 +70,10 @@ evidencias/corridas/<run_id>/ ──► p6.metricas ──► metricas.json
 
 Probado en Windows 11 con Python 3.12.10, solo CPU. No requiere cámara, GPU ni servicios externos.
 
+En Windows, clona en una ruta corta o activa `git config --global core.longpaths true`
+antes de clonar: algunas rutas de evidencias llegan a 121 caracteres.
+La reproducción desde un clon limpio está en [`evidencias/reproduccion.md`](evidencias/reproduccion.md).
+
 ```bash
 git clone <este repositorio> p6 && cd p6
 python -m venv .venv

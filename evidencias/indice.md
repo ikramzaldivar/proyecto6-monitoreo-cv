@@ -9,6 +9,7 @@
 | `862916f` | `config/referencia.json` y corrida r0 | Referencia congelada antes de C1/C2 |
 | `de41810` | LF en JSON, motivo de resolución por regla, E1 rediseñado | **Revisión con la que corrieron C1, C2, E1, E2 y E3** (`run.json → git.commit`, sin cambios en el código) |
 | commit de entrega (siguiente a `de41810`) | Corridas C1–E3, capturas del portal, documentación, recálculo y reproducción | Solo agrega evidencias y docs. Además cambia la posición de las etiquetas de umbral en las gráficas SVG (`src/p6/portal.py`, `_umbral`) y amplía `scripts/recalcular_metricas.py` a las métricas extra; ninguno de los dos cambios afecta a las corridas ya registradas |
+| commit siguiente | Corrección de la raíz en `metricas.py` (M5 fuera del repositorio) y reproducción | Hallado al reproducir desde un clon limpio; los `metricas.json` entregados no cambian (ver `reproduccion.md`) |
 
 Configuración de todas las corridas C1–E3: `monitoreo-v1@2ea33802ba0c`. Modelo:
 `yolox_nano 0.1.1rc0`, SHA-256 `c789161ed43c8269fcd4e67c67eeeb4e80c622da2eb296a20bc6007bd18a0b7d`.

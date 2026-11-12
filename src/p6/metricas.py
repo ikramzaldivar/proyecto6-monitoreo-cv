@@ -23,6 +23,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+RAIZ = Path(__file__).resolve().parents[2]
+
 # Cortes de la distribucion de puntuacion del frame (piso de salida 0.10 hasta 1.0].
 BINS = (0.10, 0.25, 0.40, 0.55, 0.70, 0.85, 1.0000001)
 EPS_PSI = 1e-4
@@ -210,8 +212,9 @@ def calcular(dir_run: Path) -> dict[str, Any]:
         else _nulo("la corrida no registro capturas", n=0)
     )
     # G5 adicional: cobertura de trazabilidad = eventos con todos los campos requeridos y
-    # cuya entrada coincide con el SHA-256 del manifiesto / eventos.
-    raiz = dir_run.parents[2]
+    # cuya entrada coincide con el SHA-256 del manifiesto / eventos. Las rutas de entrada son
+    # relativas a la raiz del repositorio, no a la carpeta de la corrida (puede estar fuera).
+    raiz = RAIZ
     completos = 0
     for e in eventos:
         campos = all(e.get(k) not in (None, "") for k in CAMPOS_TRAZA)
