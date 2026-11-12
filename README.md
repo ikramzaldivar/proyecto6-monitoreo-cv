@@ -15,7 +15,7 @@ ventana y genera alertas que se consultan en un portal web.
 
 | | |
 | --- | --- |
-| Estudiante | Ikram Zaldívar (@ikramzaldivar) · matrícula: _completar_ |
+| Estudiante | Ikram Zaldívar (@ikramzaldivar) · matrícula 743709 |
 | Curso | Integración de Servicios de Aprendizaje Automático, ITESO, otoño 2026 |
 | Repositorio | este repositorio; revisión de las evidencias en [`evidencias/indice.md`](evidencias/indice.md) |
 
